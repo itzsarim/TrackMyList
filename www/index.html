@@ -25,17 +25,197 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		
+		<title>BerryDroid</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+        
+<!-- Start of first page: #one -->
+<div data-role="page" id="one">
+
+	<div data-role="header">
+		
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content" style="margin-top:20%;">
+		
+		
+		<p><a href="#pair" class="ui-btn ui-shadow ui-corner-all">Login</a></p>
+		
+		
+		<p><a href="#signup" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Signup</a></p>
+	</div><!-- /content -->
+
+	<!-- <div data-role="footer" data-theme="a" style="margin-bottom:1%">
+		
+	</div>/footer -->
+</div><!-- /page one -->
+
+<!-- Start of second page: #pair -->
+<div data-role="page" id="pair" data-theme="a">
+
+	<div data-role="header">
+		
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<div style="margin-top:20%;">
+		<input type="text" name="enter-number" id="enter-number"  placeholder="enter cart serial number" value="">
+		<button id="pair" class="ui-btn ui-btn-a">Pair</button>
+		</div>
+		
+		<label for="skip-to-list" style="margin-left:40%; margin-top:10%;">not near a cart?</label>
+		
+		<p><a href="#alists" id="skip-to-list" class="ui-btn ui-shadow ui-corner-all">Skip to list</a></p>
+	</div><!-- /content -->
+
+	<!--<div data-role="footer">
+		
+	</div> /footer -->
+</div><!-- /page two -->
+
+<!-- Start of third page: #signup -->
+<div data-role="page" id="signup">
+
+	<div data-role="header" data-theme="b">
+		<h1>Sign Up</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<input type="text" name="email" id="email"  placeholder="enter your email" value="">
+		<input type="password" name="password" id="password"  placeholder="enter your password" value="">
+		<button id="signup" class="ui-btn ui-btn-a">Signup</button>
+		<p><a href="#one" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">Back to login</a></p>
+	</div><!-- /content -->
+
+	<!--<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div> /footer -->
+</div><!-- /page signup -->
+
+
+<!-- Start of 4th page: #alists -->
+<div data-role="page" id="alists">
+
+	<div data-role="header" data-theme="b" >
+		<!--added onclick="clearlist()"-->
+		<a href="#pair" data-role="button" onclick="clearlist()" data-rel="back" data-icon="back" >Back</a>
+		<h1>All lists</h1>
+		<!--<a href="#order" data-icon="grid">My Order</a>-->
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<!--added onclick="clearlist()"-->
+		<p><a id="addlist" href="#addlists" onclick="clearlist()" class="ui-btn ui-shadow ui-corner-all">Add new list</a></p>
+		
+		<!--populate listview here-->
+		<ul data-role="listview" data-divider-theme="b" data-inset="true">
+        <div id="listing">
+            <li data-role="list-divider" role="heading">
+                
+            </li>
         </div>
+        </ul>
+		
+		
+	</div><!-- /content -->
+
+	<!--<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div> /footer -->
+</div><!-- /page signup -->
+
+
+<!-- Start of 5th page: #addlists -->
+<div data-role="page" id="addlists">
+
+	<div data-role="header" data-theme="b">
+		<a href="#alists" data-role="button" data-rel="back" data-icon="back" >Back</a>
+		<h1>Add list name</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		
+		<input type="text" name="listname" id="listname"  placeholder="enter the listname" value="">
+		<p><a id="listnamesubmit"  href="#addlistitems" class="ui-btn ui-shadow ui-corner-all">Add List</a></p>
+		
+	</div><!-- /content -->
+
+	<!--<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div> /footer -->
+</div><!-- /page addlists -->
+
+<!-- Start of 6th page: #addlistitems -->
+<div data-role="page" id="addlistitems">
+
+	<div data-role="header" data-theme="b">
+		<a href="#addlists" data-role="button" data-rel="back" data-icon="back" >Back</a>
+		<h1 id="namehead"></h1>
+		<!--added onclick="clearitem()"-->
+		<a href="#alists" id="additemdone" data-role="button" onclick="clearitem()" data-icon="check" >Done</a>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		
+    <div class="ui-grid-a">
+      <div class="ui-block-a">
+            <input type="text" class="itemname" name="itemname" placeholder="enter item name" />
+      </div>
+      <div class="ui-block-b" style="width:5%;">
+            <input type="submit" id="additem" data-mini="true" value="+" />
+      </div>
+	</div>
+
+    
+    <div id="itemslisting">
+    </div>
+    
+	</div><!-- /content -->
+
+	<!--<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div> /footer -->
+</div><!-- /page addlistitems -->
+<!-- Start of 7th page: #listdetails -->
+<div data-role="page" id="listdetails">
+    <div data-theme="a" data-role="header">
+    	<a href="#alists" id="listdetailsback" onclick="clearlistdetails()" data-role="button" data-rel="back" data-icon="back" >Back</a>
+        <h3 id="listheader">
+        	<!-- Header-->
+        </h3>
+    </div>
+    
+	<div class="ui-grid-a">
+      	<div class="ui-block-a">
+            <input type="text" class="itemname" name="listdetailitemname" placeholder="enter item name" />
+      	</div>
+      	<div class="ui-block-b" style="width:5%;">
+      		<!--added onclick="additeminlist()"-->
+            <input type="submit" onclick="additeminlist()" id="listdetailadditem" data-mini="true" value="+" />
+      	</div>
+	</div>
+
+
+    <div data-role="content">
+        <div data-role="fieldcontain">
+            <fieldset id="checkboxes" data-role="controlgroup" data-type="vertical" data-mini="true">
+            	<!--
+                <input id="checkbox" name="" type="checkbox">
+                <label for="checkbox">
+                    Checkbox
+                </label>
+            	-->
+            </fieldset>
+        </div>
+    </div>
+</div>
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/database.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+
     </body>
 </html>
