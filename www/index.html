@@ -28,34 +28,6 @@
         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
 		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 		<script src="js/jquery.mobile-1.4.5.min.js"></script>
-		<script src="js/cordova.oauth2.js"></script>
-		  <script>
-//https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=https://mcprojectserver.appspot.com/auth&response_type=code&client_id=
-	    //378239996981-nmpgvld6r8d83k0u6nl1822v3ml6hl4f.apps.googleusercontent.com&state=234512            
-// template for new oauth2 service            
-function oauth2_login() {
-    $.oauth2({
-        auth_url: 'https://accounts.google.com/o/oauth2/auth',           // required
-        response_type: 'code',      // required - "code"/"token"
-        token_url: 'https://accounts.google.com/o/oauth2/token',          // required if response_type = 'code'
-        logout_url: '',         // recommended if available
-        client_id: '719882111073-41o90hepdjirgmvjc998m58on1jjjpqn.apps.googleusercontent.com',          // required
-        client_secret: 'jr3U2Sp-IemO3_v5ucaN6HXZ',      // required if response_type = 'code'
-        redirect_uri: 'http://localhost',       // required - some dummy url
-        other_params: {scope:'profile email'}        // optional params object for scope, state, display...
-    }, function(token, response){
-        // do something with token or response
-        $("#logs").append("<p class='success'><b>access_token: </b>"+token+"</p>");
-        $("#logs").append("<p class='success'><b>response: </b>"+JSON.stringify(response)+"</p>");
-    }, function(error, response){
-        // do something with error object
-        $("#logs").append("<p class='error'><b>error: </b>"+JSON.stringify(error)+"</p>");
-        $("#logs").append("<p class='error'><b>response: </b>"+JSON.stringify(response)+"</p>");
-    }); 
-}
-       
-        </script>
-
 		
 		<title>BerryDroid</title>
     </head>
@@ -71,7 +43,7 @@ function oauth2_login() {
 	<div role="main" class="ui-content" style="margin-top:20%;">
 		
 		
-		<p><a href='#pair' class="ui-btn ui-shadow ui-corner-all">Login</a></p>
+		<p><a href="#pair" class="ui-btn ui-shadow ui-corner-all">Login</a></p>
 		
 		
 		<p><a href="#signup" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Signup</a></p>
@@ -168,7 +140,7 @@ function oauth2_login() {
 	<div role="main" class="ui-content">
 		
 		<input type="text" name="listname" id="listname"  placeholder="enter the listname" value="">
-		<p><a id="listnamesubmit" onclick="addnewlist()" href="#addlistitems" class="ui-btn ui-shadow ui-corner-all">Add List</a></p>
+		<p><a id="listnamesubmit"  href="#addlistitems" class="ui-btn ui-shadow ui-corner-all">Add List</a></p>
 		
 	</div><!-- /content -->
 
@@ -194,7 +166,7 @@ function oauth2_login() {
             <input type="text" class="itemname" name="itemname" placeholder="enter item name" />
       </div>
       <div class="ui-block-b" style="width:5%;">
-            <input type="submit" onclick="addnewitem()" id="additem" data-mini="true" value="+" />
+            <input type="submit" id="additem" data-mini="true" value="+" />
       </div>
 	</div>
 
@@ -224,7 +196,6 @@ function oauth2_login() {
       	<div class="ui-block-b" style="width:5%;">
       		<!--added onclick="additeminlist()"-->
             <input type="submit" onclick="additeminlist()" id="listdetailadditem" data-mini="true" value="+" />
-
       	</div>
 	</div>
 
