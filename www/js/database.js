@@ -125,6 +125,7 @@ function updateTable(tableName,setFields,setParams,whereStr,wherParams){
 		sql += " where " + whereStr;
 		setParams = setParams.concat(wherParams);
 	}
+	//alert(sql+" "+setParams[0]+" "+setParams[1]);
 	execSql(sql,setParams);
 }
 
@@ -179,7 +180,7 @@ function select(tableName,selectFields,whereStr,wherParams,callback){
 		&& whereStr!=""){
 		sql += " where " + whereStr;
 	}
-   // alert(sql);
+   	//alert(sql);
 	 db.transaction(function(tx){
           tx.executeSql(sql,wherParams,function(tx,results){
         	  if(results.rows.length<1){
@@ -188,9 +189,9 @@ function select(tableName,selectFields,whereStr,wherParams,callback){
               	  if(typeof(callback) == 'function') {callback(results.rows)}
         	  }
           },function(tx,error){
+          	alert("error");
               return false;
           });
       });
 }
  
-

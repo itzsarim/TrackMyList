@@ -61,44 +61,26 @@ var app = {
 };
 
 app.initialize();
+function addnewlist(){
+    var newListName = $('input[name=listname]').val();
+        
+    $('input[name=listname]').val("");
+    table_list = newListName;
+    createTable(table_list,listFields,{"id":"primary key","item":"not null","list":"not null","bought":"not null"});
+}
+
+function addnewitem(){
+    var newItemName = $('input[name=itemname]').val();
+    $('#itemslisting').append('<div class="item">' +itemID+'.'+newItemName + '</div>' );
+    $('input[name=itemname]').val("");
+    createPara(itemID,newItemName,table_list);
+    itemID+=1;
+    insertTable(table_list,listFields,insertP);
+}
 
 $(document).ready(function(){
     //Open database
-    openDB();
-    var newListName = null;
-    //add new list into database
-    $('#listnamesubmit').click(function(){
-        newListName = $('input[name=listname]').val();
-        
-        $('input[name=listname]').val("");
-        //$('#listBtn').remove();
-        table_list = newListName;
-        createTable(table_list,listFields,{"id":"primary key","item":"not null","list":"not null","bought":"not null"});
-        //insertTable(table_list,listFields,insertP);
-        
-    });   
-    
-    
-
-    //add items into new created list
-    $('#additem').click(function(){
-        var newItemName = $('input[name=itemname]').val();
-        $('#itemslisting').append('<div class="item">' +itemID+'.'+newItemName + '</div>' );
-        $('input[name=itemname]').val("");
-        createPara(itemID,newItemName,newListName);
-        itemID+=1;
-        insertTable(table_list,listFields,insertP);
-        
-        
-        select(table_list,"*","list=?",[newListName],function(rows){
-            if(rows){
-                var lastItem = rows.length-1;
-            }
-        });
-    });
-
-
-    
+    openDB(); 
 });
 
 //show all lists in the database in the page alists when loading this page
@@ -137,9 +119,11 @@ function clearlistdetails(){
     $('#listheader').empty();
     $('#checkboxes').empty();
 }
-
+var curlistname;
+var currownum;
 //load a list whose name is listid and all its items and then go into page listdetails
 function clicklist(listid){
+    curlistname = listid;
     clearlist();
     $('#listheader').append(listid);
     //alert($('#listheader').text());
@@ -148,11 +132,27 @@ function clicklist(listid){
                 //row.length is the numbter of return rows
                 //row.item(index).attribute is the data acquired from the rows, where index is the index of rows returned, attribute is the certain attribute in field 
                 var len = rows.length;
+                currownum =len;
                 for(var i=0;i<len;i++){
                     var curritem = rows.item(i).item;
-                    var bought = rows.item(i).bought;
-                    $('#checkboxes').append('<input id="'+i+'" name="'+curritem+'" type="checkbox"> <label for="checkbox">'+curritem+'</label>');
-
+                    var rowid = i+1;
+                    //alert(bought);
+                    $('#checkboxes').append('<input class="boughtcheckbox" onclick="updatebought(this.name,this.checked)" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+rowid+'" type="checkbox"> <label for="checkbox">'+curritem+'</label>');
+                }
+                for(var i=0;i<len;i++){
+                    //alert(i);
+                    var curritem = rows.item(i).item;
+                    var curbought = rows.item(i).bought;
+                    var rowid = i+1;
+                    //alert(curbought);
+                    //alert(typeof(curbought));
+                    if(curbought=="false"){
+                        curbought=false;
+                    }
+                    if(curbought){
+                        //alert("?");
+                        $('#'+curritem).prop("checked",true);
+                    };
                 }
                 
             }
@@ -161,19 +161,52 @@ function clicklist(listid){
     document.location.href='#listdetails';
 }
 
+function updatebought(name,ischecked){
+    var array = name.split("$");
+    var listname = array[0];
+    var itemname = array[1];
+    var checked = ischecked;
+    //alert(itemname);
+    updateTable(listname,['bought'],[checked],"item=?",[itemname]);
+    select(listname,"*","item=?",[itemname],function(rows){
+        if(rows){
+            var b = rows.item(0).bought;
+            //alert(b);
+        }
+    })
+}
+// $(.boughtcheckbox).bind("click",function(){
+
+//     var itemid = this.id;
+//     alert(itemid);
+//     var ischecked = this.checked;
+//     alert(ischecked);
+// });
+
 //add items in the listdetails page;
 function additeminlist(){
-    var currlistname=$('#listheader').text();
-    //alert(currlistname);
-    currlistname = currlistname.replace(/\ +/g,"");
-    currlistname = currlistname.replace(/[\r\n]/g,"")
-    //alert("lalalala"+currlistname);
-    var rownum = $('#checkboxes label').length;
-    var itemID = rownum+1;
-    //alert(itemID);
-    var newItemName = $('input[name=listdetailitemname]').val();
-    $('#checkboxes').append('<input id="'+itemID+'" name="'+newItemName+'" type="checkbox"> <label for="checkbox">'+newItemName+'</label>');
+    // select(curlistname,"*","list=?",[curlistname],function(rows){
+    //         if(rows){
+    //             //row.length is the numbter of return rows
+    //             //row.item(index).attribute is the data acquired from the rows, where index is the index of rows returned, attribute is the certain attribute in field 
+    //             var len = rows.length;
+    //             //currownum =len;
+    //             for(var i=0;i<len;i++){
+    //                 var curritem = rows.item(i).item;
+    //                 var bought = rows.item(i).bought;
+    //                 $('#checkboxes').append('<input id="'+i+'" name="'+curritem+'" type="checkbox"> <label for="checkbox">'+curritem+'</label>');
+
+    //             }
+                
+    //         }
+    //     });
+    //alert(curlistname);
+    //alert(currownum);
+    currownum+=1;
+    var newitem = $('input[name=listdetailitemname]').val();
+    //alert(newitem);
+    $('#checkboxes').append('<input id="'+newitem+'" onclick="updatebought(this.name,this.checked)"  name="'+curlistname+'$'+newitem+'$'+currownum+'" type="checkbox"> <label for="checkbox">'+newitem+'</label>');
     $('input[name=listdetailitemname]').val("");        
-    createPara(itemID,newItemName,currlistname);
-    insertTable(currlistname,listFields,insertP);
+    createPara(currownum,newitem,curlistname);
+    insertTable(curlistname,listFields,[currownum,newitem,curlistname,false]);
 };
