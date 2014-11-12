@@ -45,9 +45,9 @@
 	<div role="main" class="ui-content" style="margin-top:20%;">
 		
 		<!--<p><a onclick="oauth2_login()" class="ui-btn ui-shadow ui-corner-all">Login</a></p>-->
-		<p><a href="#pair" class="ui-btn ui-shadow ui-corner-all">Login</a></p>
+		<p><a href="#pair" class="ui-btn ui-shadow ui-corner-all" data-transition="slide">Login</a></p>
 
-		<p><a href="#signup" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Signup</a></p>
+		<p><a href="#signup" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="slide">Signup</a></p>
 	</div><!-- /content -->
 
 	<div data-role="footer" data-theme="a" style="margin-bottom:1%">
@@ -74,7 +74,7 @@
 		
 		<p class="shadow" style="text-align: center;">not near a cart?</p>
 		
-		<p><a href="#alists" id="skip-to-list" class="ui-btn ui-shadow ui-corner-all">Skip to list</a></p>
+		<p><a href="#alists" id="skip-to-list" class="ui-btn ui-shadow ui-corner-all" data-transition="slide">Skip to list</a></p>
 	</div><!-- /content -->
 
 	<!--<div data-role="footer">
@@ -113,11 +113,11 @@
 
 	<div role="main" class="ui-content">
 		
-		<p><a id="addlist" onclick="clearlist()" href="#addlists" class="ui-btn ui-shadow ui-corner-all">Add new list</a></p>
-		
+		<p><a id="addlist" onclick="clearlist()" href="#addlists" class="ui-btn ui-shadow ui-corner-all" data-transition="slide">Add new list</a></p>
+		<br />
 		<!--populate listview here-->
 		
-		<ul id="listing">
+		<ul id="listing" data-role="listview">
     	</ul>
 		
 		
@@ -140,7 +140,7 @@
 	<div role="main" class="ui-content">
 		
 		<input type="text" name="listname" id="listname"  placeholder="enter the listname" value="">
-		<p><a id="listnamesubmit" onclick="addnewlist()" href="#addlistitems" class="ui-btn ui-shadow ui-corner-all">Add List</a></p>
+		<p><a id="listnamesubmit" onclick="addnewlist()" href="#addlistitems" class="ui-btn ui-shadow ui-corner-all" data-transition="slide">Add List</a></p>
 		
 	</div><!-- /content -->
 
@@ -161,17 +161,20 @@
 	<div role="main" class="ui-content">
 		
     <div class="ui-grid-a">
-      <div class="ui-block-a">
+      <div class="ui-block-a" style="width:75%;">
             <input type="text" class="itemname" name="itemname" placeholder="enter item name" />
       </div>
-      <div class="ui-block-b" style="width:5%;">
-            <input type="button" data-mini="true" onclick="addnewitem()" value="+" id="itemadd" />
+      <div class="ui-block-b" style="width:25%;">
+            <input type="button" data-mini="true" onclick="addnewitem()" value="add" id="itemadd" />
       </div>
 	</div>
-
+<br/>
+    <div>
+    <ul id="itemslisting" data-role="listview">
     
-    <div id="itemslisting">
-    
+    </ul>
+    </div>
+</ul>
     </div>
     
 	</div><!-- /content -->
@@ -193,12 +196,12 @@
 	<div role="main" class="ui-content">
 
 	<div class="ui-grid-a">
-      	<div class="ui-block-a">
+      	<div class="ui-block-a" style="width:75%;">
             <input type="text" class="itemname" name="listdetailitemname" placeholder="enter item name" />
       	</div>
-      	<div class="ui-block-b" style="width:5%;">
+      	<div class="ui-block-b" style="width:25%;">
       		<!--added onclick="additeminlist()"-->
-            <input type="submit" onclick="additeminlist()" id="listdetailadditem" data-mini="true" value="+" />
+            <input type="submit" onclick="additeminlist()" id="listdetailadditem" data-mini="true" value="add" />
 
       	</div>
 	</div>	
