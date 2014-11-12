@@ -90,8 +90,8 @@ GCM_Event(e)
     //if(rows.item(curr).bought == 'true'){
     //change the bought status to false
     //refresh the list 
-    }
-	});
+    //}
+	//});
 
     //$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.msgcnt + '</li>');
 
