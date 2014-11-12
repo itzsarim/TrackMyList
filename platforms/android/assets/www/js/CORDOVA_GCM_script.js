@@ -78,6 +78,17 @@ GCM_Event(e)
     // Messages to you, This is just here to show you how it might work
 
     $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.message + '</li>');
+    
+    //update the boolean property for checkbox here
+    var tableName = $('#namehead').val();
+    select(tableName,"bought","item=?",[e.message],function(rows){
+    var curr = rows.length - 1;
+    alert(rows.item(curr).bought);
+    if(rows.item(curr).bought == 'true'){
+    //change the bought status to false
+    //refresh the list 
+    }
+	});
 
     //$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.msgcnt + '</li>');
 
