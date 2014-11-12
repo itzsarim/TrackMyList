@@ -79,12 +79,15 @@ GCM_Event(e)
 
     $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.message + '</li>');
     
+    
+    getTableNamesForItem(e.message);
+    
     //update the boolean property for checkbox here
-    var tableName = $('#namehead').val();
-    select(tableName,"bought","item=?",[e.message],function(rows){
-    var curr = rows.length - 1;
-    alert(rows.item(curr).bought);
-    if(rows.item(curr).bought == 'true'){
+    //var tableName = $('#listheader').val();
+    //select(tableName,"bought","item=?",[e.message],function(rows){
+    //var curr = rows.length - 1;
+    //alert(rows.item(curr).bought);
+    //if(rows.item(curr).bought == 'true'){
     //change the bought status to false
     //refresh the list 
     }

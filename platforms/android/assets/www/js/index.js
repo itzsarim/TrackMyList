@@ -244,3 +244,17 @@ function additeminlist(){
     createPara(currownum,newitem,curlistname);
     insertTable(curlistname,listFields,[currownum,newitem,curlistname,false]);
 };
+
+//get all the table names who has this particular item name
+function getTableNamesForItem(message){
+// return a list of all the table names which have this 'message' as item name.
+
+//create a new popup page with all these names as a list
+
+//onclick of any of these names--eg:- wallmart clicked
+//call updatebought with this tablename and this itemname,  and update this itemnames bought status.
+
+
+
+
+}
