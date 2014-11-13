@@ -211,16 +211,69 @@ function additeminlist(){
     insertTable(curlistname,listFields,[currownum,newitem,curlistname,false]);
 };
 
-//get all the table names who has this particular item name
-function getTableNamesForItem(message){
-// return a list of all the table names which have this 'message' as item name.
+//Global var to store all the table's name. initialized when document is ready,updated when adding new list
+var tablelist;
+//Global var to store item that customer puts into shopping cart and is pushed by gcm.
+var currentitemname;
+//triggered when customer puts item into shopping cart and then item's name is pushed by gcm.
+//will direct to page #selectlist
+function getTableNamesForItem(item){
+    currentitemname = item;
+    document.location.href='#selectlist';
+}
+//store all the table's names into tablelist
+function showtable(){
+    tablelist = [];
+    db.transaction(function (tx) {
+        tx.executeSql("SELECT name FROM sqlite_master WHERE type='table'", [], function (tx, result) {
+            var len = result.rows.length;
+            if (len == 1) {
+            //here are no your tables currently
+            alert("no list in the database");
+            } else {
+                for(var i=1;i<len;i++){
+                    var name =result.rows.item(i).name;
+                    tablelist.push(name);
+                }
+                 
+            }
+        });
+    });
+}
 
-//create a new popup page with all these names as a list
+//update global var tablelist when adding new list 
+$(document).on("pagebeforehide","#addlists",function(){
+    showtable();
+});
+//configure page #selectlist 
+$(document).on("pagebeforecreate","#selectlist",function(){
+    var item = currentitemname;
+    qlist = [];
+    var len = tablelist.length;
+    for(var i=0;i<len;i++){
+        select(tablelist[i],"*","item=?",[item],function(rows){
+            if(rows.length>0){
+                var name = rows.item(0).list;
+                //alert(name);
+                qlist.push(name);
+                //alert(qlist.length);
+                popuplists(name,currentitemname)
+            }
+        });
+    }
+});
 
-//onclick of any of these names--eg:- wallmart clicked
-//call updatebought with this tablename and this itemname,  and update this itemnames bought status.
+//help configure page #selectlist before page is created
+function popuplists(list,item){
+        var listanditem = list+"$"+item;
+        $('#listoptions').append('<li id="items" > <a data-transition="slide" id="'+listanditem+'" onclick="selectlistanditem(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ list+'</a></li>');
+}
 
-
-
-
+////also help configure page #selectlist before page is created
+function selectlistanditem(name){
+    var array = name.split("$");
+    var listname = array[0];
+    var itemname = array[1];
+    updatebought(name,true);
+    clicklist(listname);
 }

@@ -46,6 +46,9 @@
 	<div role="main" class="ui-content" style="margin-top:20%;">
 		
 		<p><a onclick="oauth2_login()" class="zocial google">Sign in with Google</a></p>
+		<!--uncomment to test, change the "item4" to what you have in your database
+		<p><a onclick='getTableNamesForItem("item2")' class="ui-btn ui-shadow ui-corner-all" data-transition="pop">Test</a></p>-->
+	
 		<!--<p><a onclick="oauth2_login()" class="ui-btn ui-shadow ui-corner-all">Login</a></p>-->
 		<!--<p><a href="#pair" class="ui-btn ui-shadow ui-corner-all" data-transition="slide">Login</a></p>-->
 
@@ -191,7 +194,7 @@
 <div data-role="page" id="listitems">
 
 	<div data-role="header" data-theme="b">
-		<a href="#addlists" onclick="clearlistdetails()" data-role="button" data-rel="back" data-icon="back" >Back</a>
+		<a href="#alists" onclick="clearlistdetails()" data-role="button" data-icon="back" >Back</a>
 		<h3 id="listheader"> </h3>
 		
 	</div><!-- /header -->
@@ -233,6 +236,27 @@
 		<h4>Page Footer</h4>
 	</div> /footer -->
 </div><!-- /page addlistitems -->
+
+<!-- Start of 8th page: #selectlist -->
+<div data-role="page" id="selectlist">
+	<div data-role="header" data-theme="b" >
+		<a href="#alist" data-role="button" data-rel="back" data-icon="back" >Back</a>
+		<h3 id="selectlisthead">Please Select List</h3>
+		<!--<a href="#order" data-icon="grid">My Order</a>-->
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		
+		<ul id="listoptions" data-role="listview">
+    	</ul>
+		
+		
+	</div><!-- /content -->
+
+	<!--<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div> /footer -->
+</div>
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/database.js"></script>

@@ -8,6 +8,7 @@ $(document).ready(function(){
     
     
     openDB();
+    showtable();
     
 });
 
