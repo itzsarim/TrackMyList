@@ -277,3 +277,20 @@ function selectlistanditem(name){
     updatebought(name,true);
     clicklist(listname);
 }
+
+//pair cart
+function pairCart(){
+	var cartid = document.getElementById("enter-number").value
+	console.log("sending request to pair with cart " + cartid);
+	
+	$.get("http://mcprojectserver.appspot.com/pairCart?cartid=" + cartid +  "&userid=" + username + "&gcmid=" + gApp.gcmregid, function(data, textStatus)
+	        {
+					window.location.replace('#alists');
+	        })
+	        .done(function(){
+	        		console.log("Get Done");
+			})
+			.fail(function(){
+					console.log("Get Failed");
+			});
+}
