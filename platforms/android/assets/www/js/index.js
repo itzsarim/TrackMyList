@@ -291,6 +291,7 @@ function pairCart(){
 	        		console.log("Get Done");
 			})
 			.fail(function(){
-					console.log("Get Failed");
+				$("#pairError").append("Failed to pair. Check connection.");	
+				console.log("Get Failed");
 			});
 }
