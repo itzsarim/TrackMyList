@@ -33,18 +33,32 @@ function oauth2_login() {
         response_type: 'code',      // required - "code"/"token"
         token_url: 'https://accounts.google.com/o/oauth2/token',          // required if response_type = 'code'
         logout_url: '',         // recommended if available
-        client_id: '719882111073-41o90hepdjirgmvjc998m58on1jjjpqn.apps.googleusercontent.com',          // required
-        client_secret: 'jr3U2Sp-IemO3_v5ucaN6HXZ',      // required if response_type = 'code'
+        client_id: '378239996981-s1ne80smaduluv7lkdmpooa34ohkvsit.apps.googleusercontent.com',          // required
+        client_secret: 'VWzAhGy8mpKxshuWA3TVhi-0',      // required if response_type = 'code'
         redirect_uri: 'http://localhost',       // required - some dummy url
-        other_params: {scope:'profile email'}        // optional params object for scope, state, display...
+        other_params: {scope:'https://www.googleapis.com/auth/plus.login'}        // optional params object for scope, state, display...
     }, function(token, response){
         // do something with token or response
-        $("#logs").append("<p class='success'><b>access_token: </b>"+token+"</p>");
-        $("#logs").append("<p class='success'><b>response: </b>"+JSON.stringify(response)+"</p>");
+        
+        console.log('token',token);
+        console.log('response',JSON.stringify(response));
+        $.ajax({
+                            url: 'https://www.googleapis.com/plus/v1/people/me' ,
+                            data:'access_token='+token,
+                            type: 'GET',
+                            success: function(data){
+                            var username = data['displayName'];
+                            setUserName(username);
+                            window.location.replace("#pair");
+                               
+                            },
+                            error: function(error){
+                                errorCallback(error, error);
+                            }
+                        });
     }, function(error, response){
         // do something with error object
-        $("#logs").append("<p class='error'><b>error: </b>"+JSON.stringify(error)+"</p>");
-        $("#logs").append("<p class='error'><b>response: </b>"+JSON.stringify(response)+"</p>");
+        alert('error',JSON.stringify(error));
     }); 
 }
 
@@ -81,7 +95,7 @@ function oauth2_login() {
         // String prototype to parse and get url params
         String.prototype.getParam = function( str ){
             str = str.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-            var regex = new RegExp( "[\\?&]*"+str+"=([^&#]*)" );    
+            var regex = new RegExp( "[\\?&]*"+str+"=([^&#]*)" );	
             var results = regex.exec( this );
             if( results == null ){
                 return "";
@@ -108,38 +122,33 @@ function oauth2_login() {
         // check if redirect url has code, access_token or error 
         $(loginWindow).on('loadstart', function(e) {
             var url = e.originalEvent.url;
-            //alert(url);
+            
             // if authorization code method check for code/error in url param
             if(options.response_type == "code"){
                 url = url.split("#")[0];   
                 var code = url.getParam("code");
-                alert(code);
                 var error = url.getParam("error");
-                alert(error);
                 if (code || error){
                     loginWindow.close();
                     oauth2Logout(options);
                     if (code) {
-                        //alert(code);
-                        
-                        // $.ajax({
-                        //     url: options.token_url,
-                        //     data: {code:code, client_id:options.client_id, client_secret:options.client_secret, redirect_uri:options.redirect_uri, grant_type:"authorization_code"},
-                        //     type: 'POST',
-                        //     success: function(data){
-                        //         var access_token;
-                        //         if((data instanceof Object)){
-                        //             access_token = data.access_token;
-                        //         } else {
-                        //             access_token = data.getParam("access_token");
-                        //         }
-                        //         successCallback(access_token, data);
-                        //     },
-                        //     error: function(error){
-                        //         errorCallback(error, error);
-                        //     }
-                        // });
-                        document.location.href="#pair";
+                        $.ajax({
+                            url: options.token_url,
+                            data: {code:code, client_id:options.client_id, client_secret:options.client_secret, redirect_uri:options.redirect_uri, grant_type:"authorization_code"},
+                            type: 'POST',
+                            success: function(data){
+                                var access_token;
+                                if((data instanceof Object)){
+                                    access_token = data.access_token;
+                                } else {
+                                    access_token = data.getParam("access_token");
+                                }
+                                successCallback(access_token, data);
+                            },
+                            error: function(error){
+                                errorCallback(error, error);
+                            }
+                        });
                     } else if (error) {
                         errorCallback(error, url.split("?")[1]);
                     }

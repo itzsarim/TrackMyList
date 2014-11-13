@@ -16,6 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+var username;
+    
+    
+function setUserName(name){
+username=name;
+//alert(name);
+} 
+ 
+ 
 var app = {
     // Application Constructor
     initialize: function() {
@@ -35,6 +45,11 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         
+        
+       
+        
+        
+        
         nfc.addTagDiscoveredListener(
         		function (nfcEvent) {
         			console.log(JSON.stringify(nfcEvent.tag.id[1]));
@@ -52,57 +67,8 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+    
 
-// $( document ).on( "pagecreate", "#alists", function( event ) {
-//     console.log( "This page was just enhanced by jQuery Mobile!" );
-//     });
-//         console.log("in receivedEvent");
-        
-//         var inthislist = null;
-        
-//         var newListName = null;
-        
-        
-        
-//         db.transaction(queryDB,errorCB);
-        
-//         function queryDB(tx){
-//         tx.executeSql("SELECT name FROM sqlite_master WHERE type='table'",[],querySuccess,errorCB);
-//         }
-//         function querySuccess(tx,result){
-//         var len = result.rows.length;
-//         $('#listing').empty();
-//             for(var i=1;i<len;i++){
-                
-//                 $('#listing').append('<li id="items"><a href="#listitems"><h3 class="ui-li-heading">'+result.rows.item(i).name+'</h3></a></li>');
-      
-//             } 
-              
-         
-//                 $('#listing').listview();
-//         }
-//         function errorCB(err){
-//             $('#listing').append('<li id="items"><a href="#"><h3 class="ui-li-heading">'+err+'</h3></a></li>');
-//         }
-        
-        
-//         $('#listnamesubmit').click(function(){
-//         newListName = $('#listname').val();
-//         console.log('listname',newListName);
-//         table_list = newListName;
-//         inthislist=newListName;
-//         createTable(table_list,listFields,{"id":"primary key","item":"not null","list":"not null","bought":"not null"});
-//         $("#namehead").append(inthislist);
-//         });
-        
-//         $('#itemadd').click(function(){
-//         var itemadded = $('.itemname').val();
-//         $('#itemslisting').append('<div class="item">' +itemID+'.'+itemadded + '</div>' );
-//         $('.itemname').val("");
-//         createPara(itemID,itemadded,newListName);
-//         itemID+=1;
-//         insertTable(table_list,listFields,insertP);
-//         });
 
 //prepare for page 4
 $(document).on("pagebeforeshow","#alists",function(){
