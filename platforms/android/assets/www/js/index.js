@@ -108,7 +108,7 @@ var currownum;
 
 //add new list on page 5
 function addnewlist(){
-    var newListName = $('input[name=listname]').val();
+    var newListName = $('input[name=listname]').val().toLowerCase();
         
     $('input[name=listname]').val("");
     table_list = newListName;
@@ -117,7 +117,7 @@ function addnewlist(){
 }
 //add new items on page 6
 function addnewitem(){
-    var newItemName = $('input[name=itemname]').val();
+    var newItemName = $('input[name=itemname]').val().toLowerCase();
     $('#itemslisting').append('<li class="ui-li-static ui-body-inherit">' +itemID+'.'+newItemName + '</li>' );
     $('input[name=itemname]').val("");
     createPara(itemID,newItemName,table_list);
@@ -203,7 +203,7 @@ function updatebought(name,ischecked){
 //add items and show them on page 7
 function additeminlist(){
     currownum+=1;
-    var newitem = $('input[name=listdetailitemname]').val();
+    var newitem = $('input[name=listdetailitemname]').val().toLowerCase();
     //alert(newitem);
     $('#listingitems').append('<fieldset data-role="controlgroup">'+'<label><input id="'+newitem+'" onclick="updatebought(this.name,this.checked)"  name="'+curlistname+'$'+newitem+'$'+currownum+'" type="checkbox">'+newitem+'</label></fieldset>');
     $('input[name=listdetailitemname]').val("");        
@@ -218,7 +218,7 @@ var currentitemname;
 //triggered when customer puts item into shopping cart and then item's name is pushed by gcm.
 //will direct to page #selectlist
 function getTableNamesForItem(item){
-    currentitemname = item;
+    currentitemname = item.toLowerCase();
     document.location.href='#selectlist';
 }
 //store all the table's names into tablelist
