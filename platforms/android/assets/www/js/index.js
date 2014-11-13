@@ -219,7 +219,7 @@ var currentitemname;
 //will direct to page #selectlist
 function getTableNamesForItem(item){
     currentitemname = item.toLowerCase();
-    document.location.href='#selectlist';
+    window.location.replace='#selectlist';
 }
 //store all the table's names into tablelist
 function showtable(){
@@ -283,7 +283,7 @@ function pairCart(){
 	var cartid = document.getElementById("enter-number").value
 	console.log("sending request to pair with cart " + cartid);
 	
-	$.get("http://mcprojectserver.appspot.com/pairCart?cartid=" + cartid +  "&userid=" + username + "&gcmid=" + gApp.gcmregid, function(data, textStatus)
+	$.get("http://mcprojectserver.appspot.com/paircart?cartid=" + cartid +  "&userid=" + username + "&gcmid=" + gApp.gcmregid, function(data, textStatus)
 	        {
 					window.location.replace('#alists');
 	        })
