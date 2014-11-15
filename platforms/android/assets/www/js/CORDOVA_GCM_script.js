@@ -13,12 +13,7 @@ window.onbeforeunload  =  function(e) {
     }
 };
 
-function testing(item){
 
-
-currentitemname = item.toLowerCase();
- window.location.replace("#selectlist");
-}
 
 
 //Global var to store all the table's name. initialized when document is ready,updated when adding new list
@@ -27,11 +22,13 @@ var tablelist;
 var currentitemname;
 //triggered when customer puts item into shopping cart and then item's name is pushed by gcm.
 //will direct to page #selectlist
-function getTableNamesForItem(){
-	alert("inside gettablename");
-    //currentitemname = item.toLowerCase();
-    //window.location.replace='#selectlist';
-} 
+
+function startListNames(item){
+
+currentitemname = item.toLowerCase();
+ window.location.replace("#selectlist");
+ 
+}
 
 //store all the table's names into tablelist
 function showtable(){
@@ -192,7 +189,7 @@ GCM_Event(e)
     gApp.gcmregid = e.regid;
     if ( gApp.gcmregid.length > 0 )
     {
-      $("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
+      //$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
 
 
       // ==============================================================================
@@ -216,24 +213,11 @@ GCM_Event(e)
     // You will NOT receive any messages unless you build a HOST server application to send
     // Messages to you, This is just here to show you how it might work
 
-    $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.message + '</li>');
+    //$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.message + '</li>');
     
-    testing(e.message);
+    startListNames(e.message);
+    
     //getTableNamesForItem();
-    
-    
-    //update the boolean property for checkbox here
-    //var tableName = $('#listheader').val();
-    //select(tableName,"bought","item=?",[e.message],function(rows){
-    //var curr = rows.length - 1;
-    //alert(rows.item(curr).bought);
-    //if(rows.item(curr).bought == 'true'){
-    //change the bought status to false
-    //refresh the list 
-    //}
-	//});
-
-    //$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.msgcnt + '</li>');
 
 
     break;

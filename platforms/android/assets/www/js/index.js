@@ -18,13 +18,21 @@
  */
  
 var username;
-
+var loggedin = false;
    
     
 function setUserName(name){
 username=name;
 //alert(name);
 } 
+
+function setLoginStatus(){
+
+// set the loggedin variable in database to true.
+loggedin = true;
+//alert("status login set"+ loggedin);
+
+}
  
  
 var app = {
@@ -45,16 +53,10 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        
-        
-       
-        
-        
-        
+      
         nfc.addTagDiscoveredListener(
         		function (nfcEvent) {
         			console.log(JSON.stringify(nfcEvent.tag.id[1]));
-//        			$('#enter-number').text("Alok");
         			document.getElementById("enter-number").value = JSON.stringify(nfcEvent.tag.id);
         		},
         		function(){
@@ -69,7 +71,13 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
     
-
+//alert("logged in status"+ loggedin);
+//check database for loggedin boolean
+if (loggedin){
+        
+        	window.location.replace("#pair");
+        
+        }
 
 //prepare for page 4
 $(document).on("pagebeforeshow","#alists",function(){

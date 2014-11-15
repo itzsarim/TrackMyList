@@ -30,6 +30,7 @@
 		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/zocial.css" />
+		<link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
 		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 		<script src="js/jquery.mobile-1.4.5.min.js"></script>
 		<title>BerryDroid</title>
@@ -45,7 +46,11 @@
 
 	<div role="main" class="ui-content" style="margin-top:20%;">
 		
-		<p><a onclick="oauth2_login()" class="zocial google">Sign in with Google</a></p>
+		
+		
+		<p class="titleShadow">BerryDroid</p>
+		<p style="margin-top:70%;"><a onclick="oauth2_login()" class="ui-btn ui-shadow ui-corner-all">Sign in with Google</a></p>
+		
 		<!--uncomment to test, change the "item4" to what you have in your database-->
 		<!--<p><a onclick='getTableNamesForItem("item2")' class="ui-btn ui-shadow ui-corner-all" data-transition="pop">Test</a></p>-->
 	
@@ -56,13 +61,16 @@
 		<div id="logs"></div>
 	</div><!-- /content -->
 
-	<div data-role="footer" data-theme="a" style="margin-bottom:1%">
+	<!--<div data-role="footer" data-theme="a" style="margin-bottom:1%">
+		
+		
+		
 		<div id="app-status-div">
 		<ul id="app-status-ul">
 			<li>gcm data display for test</li>
 		</ul>
 	    </div>
-	</div>
+	</div>-->
 </div><!-- /page one -->
 
 <!-- Start of second page: #pair -->
@@ -147,6 +155,7 @@
 	<div role="main" class="ui-content">
 		
 		<input type="text" name="listname" id="listname"  placeholder="enter the listname" value="">
+		<input type="text" name="budget" id="budget"  placeholder="enter your budget" value="">
 		<p><a id="listnamesubmit" onclick="addnewlist()" href="#addlistitems" class="ui-btn ui-shadow ui-corner-all" data-transition="slide">Add List</a></p>
 		
 	</div><!-- /content -->
