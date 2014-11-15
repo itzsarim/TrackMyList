@@ -13,8 +13,147 @@ window.onbeforeunload  =  function(e) {
     }
 };
 
+function testing(item){
+
+
+currentitemname = item.toLowerCase();
+ window.location.replace("#selectlist");
+}
+
+
+//Global var to store all the table's name. initialized when document is ready,updated when adding new list
+var tablelist;
+//Global var to store item that customer puts into shopping cart and is pushed by gcm.
+var currentitemname;
+//triggered when customer puts item into shopping cart and then item's name is pushed by gcm.
+//will direct to page #selectlist
+function getTableNamesForItem(){
+	alert("inside gettablename");
+    //currentitemname = item.toLowerCase();
+    //window.location.replace='#selectlist';
+} 
+
+//store all the table's names into tablelist
+function showtable(){
+    tablelist = [];
+    db.transaction(function (tx) {
+        tx.executeSql("SELECT name FROM sqlite_master WHERE type='table'", [], function (tx, result) {
+            var len = result.rows.length;
+            if (len == 1) {
+            //here are no your tables currently
+            alert("no list in the database");
+            } else {
+                for(var i=1;i<len;i++){
+                    var name =result.rows.item(i).name;
+                    tablelist.push(name);
+                }
+                 
+            }
+        });
+    });
+}
+
+//update global var tablelist when adding new list 
+$(document).on("pagebeforehide","#addlists",function(){
+    showtable();
+});
+//configure page #selectlist 
+$(document).on("pagebeforecreate","#selectlist",function(){
+    var item = currentitemname;
+    qlist = [];
+    var len = tablelist.length;
+    for(var i=0;i<len;i++){
+        select(tablelist[i],"*","item=?",[item],function(rows){
+            if(rows.length>0){
+                var name = rows.item(0).list;
+                //alert(name);
+                qlist.push(name);
+                //alert(qlist.length);
+                popuplists(name,currentitemname)
+            }
+        });
+    }
+});
+
+//help configure page #selectlist before page is created
+function popuplists(list,item){
+        var listanditem = list+"$"+item;
+        $('#listoptions').append('<li id="items" > <a data-transition="slide" id="'+listanditem+'" onclick="selectlistanditem(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ list+'</a></li>');
+}
+
+////also help configure page #selectlist before page is created
+function selectlistanditem(name){
+    var array = name.split("$");
+    var listname = array[0];
+    var itemname = array[1];
+    updatebought(name,true);
+    clicklist(listname);
+}
+//update the database when check box changes on page 7
+function updatebought(name,ischecked){
+    var array = name.split("$");
+    var listname = array[0];
+    var itemname = array[1];
+    var checked = ischecked;
+    //alert(itemname);
+    updateTable(listname,['bought'],[checked],"item=?",[itemname]);
+    select(listname,"*","item=?",[itemname],function(rows){
+        if(rows){
+            var b = rows.item(0).bought;
+            //alert(b);
+        }
+    })
+}
+//trigered to prepare page 7 and direct to page 7
+function clicklist(listid){
+    curlistname = listid;
+    clearlist();
+
+    $('#listheader').append(listid);
+    //alert($('#listheader').text());
+    select(listid,"*","list=?",[listid],function(rows){
+            if(rows){
+                console.log('list name',curlistname);
+                //row.length is the numbter of return rows
+                //row.item(index).attribute is the data acquired from the rows, where index is the index of rows returned, attribute is the certain attribute in field 
+                var len = rows.length;
+                currownum =len;
+                for(var i=0;i<len;i++){
+
+                    var curritem = rows.item(i).item;
+                    var curbought = rows.item(i).bought;
+                    var rowid = i+1;
+                    //alert(bought);
+                    $('#listingitems').append('<label><input class="boughtcheckbox" onclick="updatebought(this.name,this.checked)" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+rowid+'" type="checkbox">'+curritem+'</label>');
+                }
+                for(var i=0;i<len;i++){
+                    //alert(i);
+                    var curritem = rows.item(i).item;
+                    var curbought = rows.item(i).bought;
+                    var rowid = i+1;
+                    //alert(curbought);
+                    //alert(typeof(curbought));
+                    if(curbought=="false"){
+                        curbought=false;
+                    }
+                    if(curbought){
+                        //alert("?");
+                        $('#'+curritem).prop("checked",true);
+                    };
+                }
+                
+            }
+        });
+    
+    document.location.href='#listitems';
+}
+
+
+
+
 
 document.addEventListener('deviceready', function() {
+
   // This is the Cordova deviceready event. Once this is called Cordova is available to be used
   $("#app-status-ul").append('<li>deviceready event received</li>' );
 
@@ -79,8 +218,9 @@ GCM_Event(e)
 
     $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.message + '</li>');
     
+    testing(e.message);
+    //getTableNamesForItem();
     
-    getTableNamesForItem(e.message);
     
     //update the boolean property for checkbox here
     //var tableName = $('#listheader').val();
