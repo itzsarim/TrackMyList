@@ -83,7 +83,7 @@ $(document).on("pagebeforeshow","#alists",function(){
                     var name =result.rows.item(i).name;
                     //var drop = 'DROP TABLE IF EXISTS '+name;
                     //execSql(drop);
-                    $('#listing').append('<li id="items" > <a data-transition="slide" id="'+name+'" onclick="clicklist(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ name+'</a></li>');
+                    $('#listing').prepend('<li id="items" > <a data-transition="slide" id="'+name+'" onclick="clicklist(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ name+'</a></li>');
                    
                 }
                  

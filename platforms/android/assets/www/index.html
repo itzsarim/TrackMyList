@@ -37,7 +37,7 @@
     <body>
         
 <!-- Start of first page: #one -->
-<div data-role="page" id="one">
+<div data-role="page" data-dom-cache="true" id="one">
 
 	<div data-role="header">
 		
@@ -66,7 +66,7 @@
 </div><!-- /page one -->
 
 <!-- Start of second page: #pair -->
-<div data-role="page" id="pair" data-theme="a">
+<div data-role="page" data-dom-cache="true" id="pair" data-theme="a">
 
 	<div data-role="header">
 		
@@ -90,7 +90,7 @@
 </div><!-- /page two -->
 
 <!-- Start of third page: #signup -->
-<div data-role="page" id="signup">
+<div data-role="page" data-dom-cache="true" id="signup">
 
 	<div data-role="header" data-theme="b">
 		<h1>Sign Up</h1>
@@ -100,7 +100,7 @@
 		<input type="text" name="email" id="email"  placeholder="enter your email" value="">
 		<input type="password" name="password" id="password"  placeholder="enter your password" value="">
 		<button id="signup" class="ui-btn ui-btn-a">Signup</button>
-		<p><a href="#one" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">Back to login</a></p>
+		<p><a href="#one" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">Back to login</a></p>
 	</div><!-- /content -->
 
 	<!--<div data-role="footer">
@@ -110,10 +110,10 @@
 
 
 <!-- Start of 4th page: #alists -->
-<div data-role="page" id="alists">
+<div data-role="page" data-dom-cache="true" id="alists">
 
 	<div data-role="header" data-theme="b" >
-		<a href="#pair" onclick="clearlist()" data-role="button" data-rel="back" data-icon="back" >Back</a>
+		<a href="#pair" onclick="clearlist()" data-role="button" data-icon="back" >Back</a>
 		<h1>All lists</h1>
 		<!--<a href="#order" data-icon="grid">My Order</a>-->
 	</div><!-- /header -->
@@ -137,10 +137,10 @@
 
 
 <!-- Start of 5th page: #addlists -->
-<div data-role="page" id="addlists">
+<div data-role="page" data-dom-cache="true" id="addlists">
 
 	<div data-role="header" data-theme="b">
-		<a href="#alists" data-role="button" data-rel="back" data-icon="back" >Back</a>
+		<a href="#alists" data-role="button" data-icon="back" >Back</a>
 		<h1>Add list name</h1>
 	</div><!-- /header -->
 
@@ -157,10 +157,10 @@
 </div><!-- /page addlists -->
 
 <!-- Start of 6th page: #addlistitems -->
-<div data-role="page" id="addlistitems">
+<div data-role="page" data-dom-cache="true" id="addlistitems">
 
 	<div data-role="header" data-theme="b">
-		<a href="#addlists" onclick="clearitem()" data-role="button" data-rel="back" data-icon="back" >Back</a>
+		<a href="#addlists" onclick="clearitem()" data-role="button" data-icon="back" >Back</a>
 		<h3 id="namehead"></h3>
 		<a href="#alists" onclick="clearitem()" data-role="button" data-icon="check" >Done</a>
 	</div><!-- /header -->
@@ -192,7 +192,7 @@
 </div><!-- /page addlistitems -->
 
 <!-- Start of 7th page: #listitems -->
-<div data-role="page" id="listitems">
+<div data-role="page" data-dom-cache="true" id="listitems">
 
 	<div data-role="header" data-theme="b">
 		<a href="#alists" onclick="clearlistdetails()" data-role="button" data-icon="back" >Back</a>
@@ -239,9 +239,9 @@
 </div><!-- /page addlistitems -->
 
 <!-- Start of 8th page: #selectlist -->
-<div data-role="page" id="selectlist">
+<div data-role="page" data-dom-cache="true" id="selectlist">
 	<div data-role="header" data-theme="b" >
-		<a href="#alist" data-role="button" data-rel="back" data-icon="back" >Back</a>
+		<a href="#alist" data-role="button" data-icon="back" >Back</a>
 		<h3 id="selectlisthead">Please Select List</h3>
 		<!--<a href="#order" data-icon="grid">My Order</a>-->
 	</div><!-- /header -->
