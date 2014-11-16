@@ -10,7 +10,9 @@ $(document).ready(function(){
     openDB();
     showtable();
     checkProfile();
-    
+    //setUserName("henry");
+    //setLoginStatus("henry");
+    //retrieveUser("henry");
 });
 
 

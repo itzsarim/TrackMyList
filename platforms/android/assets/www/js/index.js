@@ -24,7 +24,7 @@ var loggedin = false;
 function setUserName(name){
 username=name;
 //insert username into table userprofile
-insertTable("userprofile",profileFields,[username,false]);
+insertTable("userprofile",profileFields,[name,false]);
 //alert(name);
 } 
 //retrieve specific user
@@ -33,24 +33,18 @@ function retrieveUser(name){
         if(rows.length==0){
             //no such username
         }else{
-            loggedin = rows.item(0).loggedin 
-            alert(loggedin);
+            //loggedin = rows.item(0).loggedin;
+            //alert(loggedin);
         }
-    });
-}
-function retrieveUser(){
-    select("userprofile","*",function(rows){
-        //rows.length
-        //rows.item(i).loggedin 
     });
 }
 
 function setLoginStatus(name){
 
 // set the loggedin variable in database to true.
-loggedin = true;
+//loggedin = true;
 //update userstatus into true
-updateTable("userprofile",['loggedin'],[loggedin],"username=?",[name]);
+updateTable("userprofile",['loggedin'],[true],"username=?",[name]);
 //alert("status login set"+ loggedin);
 
 }
