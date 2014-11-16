@@ -16,7 +16,7 @@ window.onbeforeunload  =  function(e) {
 
 
 
-//Global var to store all the table's name. initialized when document is ready,updated when adding new list
+//Global var to store all the table's name. iniztialized when document is ready,updated when adding new list
 var tablelist;
 //Global var to store item that customer puts into shopping cart and is pushed by gcm.
 var currentitemname;
@@ -42,7 +42,9 @@ function showtable(){
             } else {
                 for(var i=1;i<len;i++){
                     var name =result.rows.item(i).name;
-                    tablelist.push(name);
+                    if(name!=="userprofile"){
+                      tablelist.push(name);
+                    }
                 }
                  
             }
@@ -111,19 +113,20 @@ function clicklist(listid){
     select(listid,"*","list=?",[listid],function(rows){
             if(rows){
                 console.log('list name',curlistname);
+                curbudget = rows.item(0).budget;
                 //row.length is the numbter of return rows
                 //row.item(index).attribute is the data acquired from the rows, where index is the index of rows returned, attribute is the certain attribute in field 
                 var len = rows.length;
-                currownum =len;
-                for(var i=0;i<len;i++){
+                currownum =len-1;
+                for(var i=1;i<len;i++){
 
                     var curritem = rows.item(i).item;
                     var curbought = rows.item(i).bought;
-                    var rowid = i+1;
+                    //var rowid = i+1;
                     //alert(bought);
-                    $('#listingitems').append('<label><input class="boughtcheckbox" onclick="updatebought(this.name,this.checked)" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+rowid+'" type="checkbox">'+curritem+'</label>');
+                    $('#listingitems').append('<label><input class="boughtcheckbox" onclick="updatebought(this.name,this.checked)" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+'" type="checkbox">'+curritem+'</label>');
                 }
-                for(var i=0;i<len;i++){
+                for(var i=1;i<len;i++){
                     //alert(i);
                     var curritem = rows.item(i).item;
                     var curbought = rows.item(i).bought;

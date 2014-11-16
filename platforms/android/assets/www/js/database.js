@@ -9,6 +9,7 @@ $(document).ready(function(){
     
     openDB();
     showtable();
+    checkProfile();
     
 });
 
@@ -69,12 +70,14 @@ function execSql(sql,param,callback){
 		});
 	});
 }
-
+var profileFields=['username','loggedin'];
 var listFields=[
    'id',				
    'item',
    'list',
-   'bought'
+   'bought',
+   'budget',
+   'price'
   ];
 
 var insertP = [];
@@ -84,6 +87,8 @@ function createPara(id,itemName,listName){
     insertP[1]=itemName;
     insertP[2]=listName;
     insertP[3]=false;
+    insertP[4]=null;
+    insertP[5]=0;
     return insertP;
 }
 
@@ -92,7 +97,7 @@ function createPara(id,itemName,listName){
  */
 function initDB(){
 	if(db==null){openDB();}
-	createTable(table_list,listFields,{"id":"primary key","item":"not null","list":"not null","bought":"not null"});
+	createTable(table_list,listFields,{"id":"primary key","item":"not null","list":"not null","bought":"not null","budget":"not null","price":"not null"});
 }
 
 /**
@@ -161,7 +166,7 @@ function insertTable(tableName,insertFields,insertParams){
 	sql2 = sql2.substr(0,sql2.length-1);
 	sql += ")";
 	sql2 +=  ")";
-    console.log(sql+sql2+insertParams[0]+", "+insertParams[1]+", "+insertParams[2]+", "+insertParams[3]);
+    //alert(sql+sql2+insertParams[0]+", "+insertParams[1]+", "+insertParams[2]+", "+insertParams[3]+", "+insertParams[4]+", "+insertParams[5]);
 	execSql(sql+sql2,insertParams);
 }
 

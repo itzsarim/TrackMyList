@@ -23,6 +23,10 @@ var loggedin = false;
     
 function setUserName(name){
 username=name;
+//insert username into table userprofile
+insertTable("userprofile",profileFields,[username,false]);
+//update userstatus into true
+updateTable("userprofile",['loggedin'],[true],"username=?",[name]);
 //alert(name);
 } 
 
@@ -34,7 +38,24 @@ loggedin = true;
 
 }
  
- 
+function checkProfile(){
+    var existProfile = false;
+    db.transaction(function (tx) {
+        tx.executeSql("SELECT name FROM sqlite_master WHERE type='table'", [], function (tx, result) {
+            var len = result.rows.length;
+            for(var i=1;i<len;i++){
+                if(name=="userprofile") {
+                    existProfile=true;
+                }       
+            }
+        });
+    });
+    if(existProfile==false){
+        //alert("no");
+        createTable("userprofile",profileFields,{"username":"primary key","loggedin":"not null"});
+    }
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -84,7 +105,7 @@ $(document).on("pagebeforeshow","#alists",function(){
     db.transaction(function (tx) {
         tx.executeSql("SELECT name FROM sqlite_master WHERE type='table'", [], function (tx, result) {
             var len = result.rows.length;
-            if (len == 1) {
+            if (len == 2) {
             //here are no your tables currently
             alert("no list in the database");
             } else {
@@ -92,8 +113,9 @@ $(document).on("pagebeforeshow","#alists",function(){
                     var name =result.rows.item(i).name;
                     //var drop = 'DROP TABLE IF EXISTS '+name;
                     //execSql(drop);
-                    $('#listing').prepend('<li id="items" > <a data-transition="slide" id="'+name+'" onclick="clicklist(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ name+'</a></li>');
-                   
+                    if(name!=="userprofile") {
+                        $('#listing').prepend('<li id="items" > <a data-transition="slide" id="'+name+'" onclick="clicklist(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ name+'</a></li>');
+                    }
                 }
                  
             }
@@ -114,15 +136,24 @@ app.initialize();
 
 var curlistname;
 var currownum;
+var curbudget;
 
 //add new list on page 5
 function addnewlist(){
     var newListName = $('input[name=listname]').val().toLowerCase();
-        
+    curbudget = parseFloat($('input[name=budget]').val());
+    if(typeof(curbudget)=="number"){
+    	curbudget =  parseFloat($('input[name=budget]').val());
+    }else{
+    	curbudget = 50;
+    }
+    //alert(curbudget);
     $('input[name=listname]').val("");
+    $('input[name=budget]').val("");
     table_list = newListName;
     $('#namehead').append(newListName);
     createTable(table_list,listFields,{"id":"primary key","item":"not null","list":"not null","bought":"not null"});
+    insertTable(table_list,listFields,[0,"budgetItem",table_list,false,curbudget,null]);
 }
 //add new items on page 6
 function addnewitem(){
@@ -131,7 +162,7 @@ function addnewitem(){
     $('input[name=itemname]').val("");
     createPara(itemID,newItemName,table_list);
     itemID+=1;
-    insertTable(table_list,listFields,insertP);
+    insertTable(table_list,listFields,insertP,null,0);
 }
 
 
@@ -155,13 +186,14 @@ function clearlistdetails(){
 
 //add items and show them on page 7
 function additeminlist(){
+	//alert(curbudget);
     currownum+=1;
     var newitem = $('input[name=listdetailitemname]').val().toLowerCase();
     //alert(newitem);
     $('#listingitems').append('<fieldset data-role="controlgroup">'+'<label><input id="'+newitem+'" onclick="updatebought(this.name,this.checked)"  name="'+curlistname+'$'+newitem+'$'+currownum+'" type="checkbox">'+newitem+'</label></fieldset>');
     $('input[name=listdetailitemname]').val("");        
-    createPara(currownum,newitem,curlistname);
-    insertTable(curlistname,listFields,[currownum,newitem,curlistname,false]);
+    //createPara(currownum,newitem,curlistname);
+    insertTable(curlistname,listFields,[currownum,newitem,curlistname,false,null,0]);
 };
 
 //pair cart
@@ -181,3 +213,16 @@ function pairCart(){
 				console.log("Get Failed");
 			});
 }
+
+//$(document).on("pagebeforehide","#addlistitems",function(){
+//	select(table_list,"*","list=?",[table_list],function(rows){
+//		var b = rows.item(0).budget;
+//		var p = rows.item(0).price;
+//		var tb = typeof(b);
+//		var tp = typeof(p);
+//		alert(b);
+//		alert(tb);
+//		alert(p);
+//		alert(tp);
+//	});
+//});
