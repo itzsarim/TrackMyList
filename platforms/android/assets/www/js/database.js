@@ -72,7 +72,7 @@ function execSql(sql,param,callback){
 		});
 	});
 }
-var profileFields=['username','loggedin'];
+var profileFields=['username','loggedin','tablename'];
 var listFields=[
    'id',				
    'item',
