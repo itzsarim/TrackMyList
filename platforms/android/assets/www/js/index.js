@@ -17,23 +17,33 @@
  * under the License.
  */
  
-var username;
+var username='sarim zaidi';
 var loggedin = false;
    
     
 function setUserName(name){
+//alert('set name as'+name);
 username=name;
 //insert username into table userprofile
 insertTable("userprofile",profileFields,[name,false]);
 //alert(name);
 } 
 //retrieve specific user
-function retrieveUser(name){
+function getLoginStatus(name){
+//alert('getlogin name '+name);
     select("userprofile","*","username=?",[name],function(rows){
+       //alert('inside select '+rows);
         if(rows.length==0){
-            //no such username
+            alert('no such username');
         }else{
-            //loggedin = rows.item(0).loggedin;
+            loggedin = rows.item(0).loggedin;
+            
+            alert('status'+loggedin);
+           if (loggedin){
+        
+        	window.location.replace("#pair");
+        
+        	}
             //alert(loggedin);
         }
     });
@@ -102,14 +112,12 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-    
+    $.mobile.linkBindingEnabled = true;
+    $.mobile.ajaxEnabled = true;
 //alert("logged in status"+ loggedin);
 //check database for loggedin boolean
-if (loggedin){
-        
-        	window.location.replace("#pair");
-        
-        }
+//getLoginStatus(username);
+
 
 //prepare for page 4
 $(document).on("pagebeforeshow","#alists",function(){

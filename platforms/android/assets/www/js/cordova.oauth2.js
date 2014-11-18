@@ -49,7 +49,7 @@ function oauth2_login() {
                             success: function(data){
                             var username = data['displayName'];
                             setUserName(username);
-                            setLoginStatus();
+                            setLoginStatus(username);
                             window.location.replace("#pair");
                                
                             },

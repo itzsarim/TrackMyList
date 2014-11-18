@@ -25,17 +25,153 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/zocial.css" />
+		<link rel="stylesheet" type="text/css" href="css/swipe.css" />
         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
-        <link rel="stylesheet" href="themes/trackmylistA.min.css" />
+        <link rel="stylesheet" href="themes/berryTheme.min.css" />
 		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
-		<link rel="stylesheet" type="text/css" href="css/zocial.css" />
+		
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Advent+Pro' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
 		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script src="js/swipe.js"></script>
 		<title>BerryDroid</title>
+		
+		
     </head>
     <body>
+        
+<div data-role="page" id="tut1" class="demo-page" data-dom-cache="true"  data-next="tut2" >
+    <div role="main" class="ui-content">
+		<div style="text-align:center; " >
+		<i class="fa fa-circle"></i>
+		<i class="fa fa-circle-o"></i>
+		<i class="fa fa-circle-o"></i>
+		<i class="fa fa-circle-o"></i>
+		
+		</div>
+		
+		
+	<a href="#tut2" data-transition="slide"><i class="fa fa-angle-double-right fa-3x" style="float:right;"></i></a>
+	
+		<table class="centered">
+		<tr>
+		<td><i class="fa fa-mobile fa-4x"></i></td>
+		<td ><i style="margin-left:10px;" class="fa fa-arrow-circle-o-right fa-2x"></i></td>
+		<td><i class="fa fa-shopping-cart fa-5x"></i></td>
+		</tr>
+		<tr >
+		<td colspan="3"><p>tap your phone <br/>against the cart <br/>to pair</p></td>
+		</tr>
+		
+		<tr><td colspan="3" height="30px"></td></tr>
+		
+		<tr><td colspan="3"><a  class="loginButton" style="color:#ffffff;" onclick="oauth2_login()" ><span class="fa-stack fa-lg">
+		  	<i class="fa fa-square-o fa-stack-2x"></i>
+		  	<i class="fa fa-google">
+			</span></i>Sign in with Google</a></td>
+		</tr>
+		</table>
+		
+     
+       
+    </div><!-- /content -->
+	
+</div>        
+<div data-role="page" id="tut2" class="demo-page" data-dom-cache="true"  data-prev="tut1" data-next="tut3" >
+    <div role="main" class="ui-content">
+		<div style="text-align:center; " >
+		<i class="fa fa-circle-o"></i>
+		<i class="fa fa-circle"></i>
+		<i class="fa fa-circle-o"></i>
+		<i class="fa fa-circle-o"></i>
+		</div>
+        <a href="#tut1" data-transition="slide"><i class="fa fa-angle-double-left fa-3x" style="float:left;"></i></a>
+		<a href="#tut3" data-transition="slide"><i class="fa fa-angle-double-right fa-3x" style="float:right;"></i></a>
+		
+		<table class="centered">
+		<tr>
+		<td><i class="fa fa-cube fa-3x"></i></td>
+		<td ><i style="margin-left:10px;" class="fa fa-hand-o-right fa-2x"></i></td>
+		<td><i class="fa fa-shopping-cart fa-5x"></i></td>
+		</tr>
+		<tr >
+		<td colspan="3"><p>add item<br/> into cart</p></td>
+		</tr>
+	
+		</table>
+		
+		
+    </div><!-- /content -->
+
+
+</div>  
+<div data-role="page" id="tut3" class="demo-page" data-dom-cache="true"  data-prev="tut2" data-next="tut4" >
+    <div role="main" class="ui-content">
+		<div style="text-align:center; " >
+		<i class="fa fa-circle-o"></i>
+		<i class="fa fa-circle-o"></i>
+		<i class="fa fa-circle"></i>
+		<i class="fa fa-circle-o"></i>
+		</div>
+        <a href="#tut2" data-transition="slide"><i class="fa fa-angle-double-left fa-3x" style="float:left;"></i></a>
+		<a href="#tut4" data-transition="slide"><i class="fa fa-angle-double-right fa-3x" style="float:right;"></i></a>
+		
+		<table class="centered">
+		<tr>
+		<td><i class="fa fa-cube fa-5x"></i></td>
+		<td ><i style="margin-left:10px;" class="fa fa-check-square-o fa-2x"></i></td>
+		<td><i class="fa fa-mobile fa-3x"></i></td>
+		</tr>
+		<tr >
+		<td colspan="3"><p>track items added<br/>on your phone</p></td>
+		</tr>
+	
+		</table>
+		
+		
+    </div><!-- /content -->
+
+</div>  
+<div data-role="page" id="tut4" class="demo-page" data-dom-cache="true"  data-prev="tut3"  >
+    <div role="main" class="ui-content">
+		<div style="text-align:center; " >
+		<i class="fa fa-circle-o"></i>
+		<i class="fa fa-circle-o"></i>
+		<i class="fa fa-circle-o"></i>
+		<i class="fa fa-circle"></i>
+		
+		</div>
+        <a href="#tut3" data-transition="slide"><i class="fa fa-angle-double-left fa-3x" style="float:left;"></i></a>
+
+		<table class="centered">
+		<tr>
+		<td><i class="fa fa-mobile fa-4x"></i></td>
+		<td ><i style="margin-left:10px;" class="fa fa-arrow-circle-o-left fa-2x"></i></td>
+		<td><i class="fa fa-shopping-cart fa-5x"></i></td>
+		</tr>
+
+		<tr >
+		<td colspan="3"><p>unpair your phone<br/> from the cart</p></td>
+		</tr>
+		<tr><td colspan="3" height="30px"></td></tr>
+		
+		<tr><td colspan="3"><a  class="loginButton" style="color:#ffffff;" onclick="oauth2_login()" ><span class="fa-stack fa-lg">
+		  	<i class="fa fa-square-o fa-stack-2x"></i>
+		  	<i class="fa fa-google">
+			</span></i>Sign in with Google</a></td>
+		</tr>
+		</table>
+		
+		
+    </div><!-- /content -->
+
+</div>  
+        
         
 <!-- Start of first page: #one -->
 <div data-role="page" data-dom-cache="true" id="one">
@@ -49,6 +185,8 @@
 		
 		
 		<p class="titleShadow">BerryDroid</p>
+		
+		
 		<p style="margin-top:70%;"><a onclick="oauth2_login()" class="ui-btn ui-shadow ui-corner-all">Sign in with Google</a></p>
 		
 		<!--uncomment to test, change the "item4" to what you have in your database-->
@@ -100,7 +238,7 @@
 <!-- Start of third page: #signup -->
 <div data-role="page" data-dom-cache="true" id="signup">
 
-	<div data-role="header" data-theme="b">
+	<div data-role="header" data-theme="a">
 		<h1>Sign Up</h1>
 	</div><!-- /header -->
 
@@ -120,7 +258,7 @@
 <!-- Start of 4th page: #alists -->
 <div data-role="page" data-dom-cache="true" id="alists">
 
-	<div data-role="header" data-theme="b" >
+	<div data-role="header" data-theme="a" >
 		<a href="#pair" onclick="clearlist()" data-role="button" data-icon="back" >Back</a>
 		<h1>All lists</h1>
 		<!--<a href="#order" data-icon="grid">My Order</a>-->
@@ -147,7 +285,7 @@
 <!-- Start of 5th page: #addlists -->
 <div data-role="page" data-dom-cache="true" id="addlists">
 
-	<div data-role="header" data-theme="b">
+	<div data-role="header" data-theme="a">
 		<a href="#alists" data-role="button" data-icon="back" >Back</a>
 		<h1>Add list name</h1>
 	</div><!-- /header -->
@@ -168,7 +306,7 @@
 <!-- Start of 6th page: #addlistitems -->
 <div data-role="page" data-dom-cache="true" id="addlistitems">
 
-	<div data-role="header" data-theme="b">
+	<div data-role="header" data-theme="a">
 		<a href="#addlists" onclick="clearitem()" data-role="button" data-icon="back" >Back</a>
 		<h3 id="namehead"></h3>
 		<a href="#alists" onclick="clearitem()" data-role="button" data-icon="check" >Done</a>
@@ -203,7 +341,7 @@
 <!-- Start of 7th page: #listitems -->
 <div data-role="page" data-dom-cache="true" id="listitems">
 
-	<div data-role="header" data-theme="b">
+	<div data-role="header" data-theme="a">
 		<a href="#alists" onclick="clearlistdetails()" data-role="button" data-icon="back" >Back</a>
 		<h3 id="listheader"> </h3>
 		
@@ -224,19 +362,7 @@
 
     <div class="ui-field-contain">
   		<fieldset id="listingitems" data-role="controlgroup">
-    	<!--
-      <input type="checkbox" name="checkbox-1a" id="checkbox-1a" class="custom">
-      <label for="checkbox-1a">Cheetos</label>
- 
-      <input type="checkbox" name="checkbox-2a" id="checkbox-2a" class="custom">
-      <label for="checkbox-2a">Doritos</label>
- 
-      <input type="checkbox" name="checkbox-3a" id="checkbox-3a" class="custom">
-      <label for="checkbox-3a">Fritos</label>
- 
-      <input type="checkbox" name="checkbox-4a" id="checkbox-4a" class="custom">
-      <label for="checkbox-4a">Sun Chips</label>
-  -->
+    	
     	</fieldset>
 	</div>
     
@@ -249,7 +375,7 @@
 
 <!-- Start of 8th page: #selectlist -->
 <div data-role="page" data-dom-cache="true" id="selectlist">
-	<div data-role="header" data-theme="b" >
+	<div data-role="header" data-theme="a" >
 		<a href="#alist" data-role="button" data-icon="back" >Back</a>
 		<h3 id="selectlisthead">Please Select List</h3>
 		<!--<a href="#order" data-icon="grid">My Order</a>-->

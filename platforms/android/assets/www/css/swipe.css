@@ -1,0 +1,55 @@
+/* Set the background image sources */
+#tut1 { background-color: #527AC0; }
+#tut2 { background-color: #C3391D; }
+#tut3 { background-color: #00B988; }
+#tut4 { background-color: #0E2A36; }
+
+/* Background settings */
+.demo-page {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+/* Transparent footer */
+.demo-page .ui-footer {
+    background: none;
+    border: none;
+    bottom: 0;
+}
+/* The footer won't have a height because there are only two absolute positioned elements in it.
+So we position the buttons from the bottom. */
+.control.ui-btn-left,
+.trivia-btn.ui-btn-right {
+    top: auto;
+    bottom: 7px;
+    margin: 0;
+}
+/* Custom styling for the trivia source */
+small {
+    font-size: .75em;
+    color: #666;
+}
+.fa{
+text-shadow:none;
+color:#ffffff;
+
+}
+.centered {
+ margin-top:20%; 
+ margin-right:auto; 
+ margin-bottom:0; 
+ margin-left:auto;
+ font-family: 'Lobster', cursive;
+ color: #ffffff;
+ text-shadow:none;
+ text-transform: none;
+ text-align:center;
+ font-size: 1.5em;
+}
+.loginButton{
+font-family: 'Advent Pro', sans-serif;
+ 
+}
+a{
+color:#ffffff;
+}
