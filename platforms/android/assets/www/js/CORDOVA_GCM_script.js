@@ -114,6 +114,7 @@ function clicklist(listid){
             if(rows){
                 console.log('list name',curlistname);
                 curbudget = rows.item(0).budget;
+                $('#dollar').append(curbudget);
                 //row.length is the numbter of return rows
                 //row.item(index).attribute is the data acquired from the rows, where index is the index of rows returned, attribute is the certain attribute in field 
                 var len = rows.length;

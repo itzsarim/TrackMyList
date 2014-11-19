@@ -256,11 +256,18 @@
 
 
 <!-- Start of 4th page: #alists -->
-<div data-role="page" data-dom-cache="true" id="alists">
+    <div data-role="page" data-dom-cache="true" id="alists">
+	<div data-role="panel" id="mypanelAlists" data-display="overlay" data-position="right">
+    <!-- panel content goes here -->
+    <button id="pair" onclick="" class="ui-btn ui-btn-a">Unpair</button>
+    <button id="logout" onclick="" class="ui-btn ui-btn-a">Logout</button>
+
+	</div><!-- /panel -->
 
 	<div data-role="header" data-theme="a" >
 		<a href="#pair" onclick="clearlist()" data-role="button" data-icon="back" >Back</a>
 		<h1>All lists</h1>
+		<a href="#mypanelAlists"  data-role="button" data-icon="bars" >Menu</a>
 		<!--<a href="#order" data-icon="grid">My Order</a>-->
 	</div><!-- /header -->
 
@@ -284,10 +291,17 @@
 
 <!-- Start of 5th page: #addlists -->
 <div data-role="page" data-dom-cache="true" id="addlists">
+<div data-role="panel" id="mypanelAddlists" data-display="overlay" data-position="right">
+    <!-- panel content goes here -->
+    <button id="pair" onclick="" class="ui-btn ui-btn-a">Unpair</button>
+    <button id="logout" onclick="" class="ui-btn ui-btn-a">Logout</button>
+
+	</div><!-- /panel -->
 
 	<div data-role="header" data-theme="a">
 		<a href="#alists" data-role="button" data-icon="back" >Back</a>
 		<h1>Add list name</h1>
+		<a href="#mypanelAddlists"  data-role="button" data-icon="bars" >Menu</a>
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
@@ -305,7 +319,12 @@
 
 <!-- Start of 6th page: #addlistitems -->
 <div data-role="page" data-dom-cache="true" id="addlistitems">
+	<div data-role="panel" id="mypanelAddlistitems" data-display="overlay" data-position="right">
+    <!-- panel content goes here -->
+    <button id="pair" onclick="" class="ui-btn ui-btn-a">Unpair</button>
+    <button id="logout" onclick="" class="ui-btn ui-btn-a">Logout</button>
 
+	</div><!-- /panel -->
 	<div data-role="header" data-theme="a">
 		<a href="#addlists" onclick="clearitem()" data-role="button" data-icon="back" >Back</a>
 		<h3 id="namehead"></h3>
@@ -340,10 +359,16 @@
 
 <!-- Start of 7th page: #listitems -->
 <div data-role="page" data-dom-cache="true" id="listitems">
+	<div data-role="panel" id="mypanelListitems" data-display="overlay" data-position="right">
+    <!-- panel content goes here -->
+    <button id="pair" onclick="" class="ui-btn ui-btn-a">Unpair</button>
+    <button id="logout" onclick="" class="ui-btn ui-btn-a">Logout</button>
 
+	</div><!-- /panel -->
 	<div data-role="header" data-theme="a">
 		<a href="#alists" onclick="clearlistdetails()" data-role="button" data-icon="back" >Back</a>
 		<h3 id="listheader"> </h3>
+		<a href="#mypanelListitems"  data-role="button" data-icon="bars" >Menu</a>
 		
 	</div><!-- /header -->
 
@@ -365,19 +390,28 @@
     	
     	</fieldset>
 	</div>
+
     
 	</div><!-- /content -->
 
-	<!--<div data-role="footer">
-		<h4>Page Footer</h4>
-	</div> /footer -->
+	<<div data-role="footer">
+		<p><b>total = </b><span id="totalsum"></span><p>
+		<p><b>budget = </b><span id="dollar"></span><p>
+	</div> 
 </div><!-- /page addlistitems -->
 
 <!-- Start of 8th page: #selectlist -->
 <div data-role="page" data-dom-cache="true" id="selectlist">
+	<div data-role="panel" id="mypanelSelectlist" data-display="overlay" data-position="right">
+    <!-- panel content goes here -->
+    <button id="pair" onclick="" class="ui-btn ui-btn-a">Unpair</button>
+    <button id="logout" onclick="" class="ui-btn ui-btn-a">Logout</button>
+
+	</div><!-- /panel -->
 	<div data-role="header" data-theme="a" >
 		<a href="#alist" data-role="button" data-icon="back" >Back</a>
 		<h3 id="selectlisthead">Please Select List</h3>
+		<a href="#mypanelSelectlist"  data-role="button" data-icon="bars" >Menu</a>
 		<!--<a href="#order" data-icon="grid">My Order</a>-->
 	</div><!-- /header -->
 

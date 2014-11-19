@@ -116,7 +116,9 @@ var app = {
     $.mobile.ajaxEnabled = true;
 //alert("logged in status"+ loggedin);
 //check database for loggedin boolean
-//getLoginStatus(username);
+// var naming;
+// naming = select("userprofile","*",);
+// getLoginStatus();
 
 
 //prepare for page 4
@@ -160,7 +162,7 @@ var curbudget;
 //add new list on page 5
 function addnewlist(){
     var newListName = $('input[name=listname]').val().toLowerCase();
-    curbudget = parseFloat($('input[name=budget]').val());
+    curbudget = $('input[name=budget]').val();
     if(typeof(curbudget)=="number"){
     	curbudget =  parseFloat($('input[name=budget]').val());
     }else{
@@ -199,6 +201,7 @@ function clearitem(){
 function clearlistdetails(){
     $('#listheader').empty();
     $('#listingitems').empty();
+    $('#dollar').empty();
 }
 
 
