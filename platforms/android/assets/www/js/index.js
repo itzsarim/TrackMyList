@@ -16,47 +16,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+function deletelist(list){
+    var drop = 'DROP TABLE IF EXISTS '+list;
+    execSql(drop);
+}
+
+function deleteitem(list,item){
+    deleteRow(list,item,"item=?");
+}
  
 var username='sarim zaidi';
 var loggedin = false;
    
     
 function setUserName(name){
-//alert('set name as'+name);
-username=name;
-//insert username into table userprofile
-insertTable("userprofile",profileFields,[name,false]);
-//alert(name);
+    updateTable("userprofile",['username'],[name],"tablename=?",["userprofile"]);
 } 
 //retrieve specific user
-function getLoginStatus(name){
+function getLoginStatus(){
 //alert('getlogin name '+name);
-    select("userprofile","*","username=?",[name],function(rows){
-       //alert('inside select '+rows);
-        if(rows.length==0){
-            alert('no such username');
-        }else{
-            loggedin = rows.item(0).loggedin;
-            
-            alert('status'+loggedin);
-           if (loggedin){
-        
-        	window.location.replace("#pair");
-        
-        	}
-            //alert(loggedin);
-        }
+var loggedinstatus;
+var name;
+    select("userprofile","*","tablename=?",["userprofile"],function(rows){
+        loggedinstatus = rows.item(0).loggedin;
+        name = rows.item(0).username;
     });
+    return loggedinstatus;
 }
 
-function setLoginStatus(name){
-
-// set the loggedin variable in database to true.
-//loggedin = true;
-//update userstatus into true
-updateTable("userprofile",['loggedin'],[true],"username=?",[name]);
-//alert("status login set"+ loggedin);
-
+function setLoginStatus(status){
+    updateTable("userprofile",['loggedin'],[status],"tablename=?",['userprofile']);
 }
  
 function checkProfile(){
@@ -64,17 +54,20 @@ function checkProfile(){
     db.transaction(function (tx) {
         tx.executeSql("SELECT name FROM sqlite_master WHERE type='table'", [], function (tx, result) {
             var len = result.rows.length;
+            //alert(len);
             for(var i=1;i<len;i++){
+                var name = result.rows.item(i).name;
                 if(name=="userprofile") {
                     existProfile=true;
+                    //alert(existProfile);
                 }       
+            }
+            if(existProfile==false){
+                createTable("userprofile",profileFields,{"username":"primary key","loggedin":"not null","tablename":"not null"});
+                insertTable("userprofile",profileFields,["default",false,"userprofile"]);
             }
         });
     });
-    if(existProfile==false){
-        //alert("no");
-        createTable("userprofile",profileFields,{"username":"primary key","loggedin":"not null"});
-    }
 }
 
 var app = {
@@ -118,7 +111,9 @@ var app = {
     $.mobile.ajaxEnabled = true;
 //alert("logged in status"+ loggedin);
 //check database for loggedin boolean
-//getLoginStatus(username);
+// var naming;
+// naming = select("userprofile","*",);
+// getLoginStatus();
 
 
 //prepare for page 4
@@ -144,7 +139,9 @@ $(document).on("pagebeforeshow","#alists",function(){
     });
 });    
         
-        
+    // var drop = 'DROP TABLE IF EXISTS userprofile';
+    // execSql(drop);
+    // alert("dropped!");    
         
         
         
@@ -162,7 +159,7 @@ var curbudget;
 //add new list on page 5
 function addnewlist(){
     var newListName = $('input[name=listname]').val().toLowerCase();
-    curbudget = parseFloat($('input[name=budget]').val());
+    curbudget = $('input[name=budget]').val();
     if(typeof(curbudget)=="number"){
     	curbudget =  parseFloat($('input[name=budget]').val());
     }else{
@@ -217,6 +214,7 @@ function clearitem(){
 function clearlistdetails(){
     $('#listheader').empty();
     $('#listingitems').empty();
+    $('#dollar').empty();
 }
 
 
