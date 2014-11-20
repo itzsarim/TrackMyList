@@ -17,6 +17,8 @@
  * under the License.
  */
 
+ var username;
+
 function deletelist(list){
     var drop = 'DROP TABLE IF EXISTS '+list;
     execSql(drop);
