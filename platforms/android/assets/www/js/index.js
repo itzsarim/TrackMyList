@@ -25,28 +25,40 @@ function deletelist(list){
 function deleteitem(list,item){
     deleteRow(list,item,"item=?");
 }
- 
-var username='sarim zaidi';
-var loggedin = false;
-   
+  
     
 function setUserName(name){
     updateTable("userprofile",['username'],[name],"tablename=?",["userprofile"]);
+    //alert("set username success");
 } 
 //retrieve specific user
 function getLoginStatus(){
-//alert('getlogin name '+name);
 var loggedinstatus;
 var name;
-    select("userprofile","*","tablename=?",["userprofile"],function(rows){
-        loggedinstatus = rows.item(0).loggedin;
-        name = rows.item(0).username;
+    select("userprofile","*","tablename=?",['userprofile'],function(rows){
+        //alert("rows are"+rows);
+        if(rows){
+            alert("success");
+            loggedinstatus = rows.item(0).loggedin;
+            name = rows.item(0).username;
+            alert(typeof(loggedinstatus));
+            if(loggedinstatus==true){
+                window.location.replace("#pair");
+            }
+        }else{
+            alert("error");
+        }
+
+    },
+    function(){
+        alert("no userprofile found");
     });
-    return loggedinstatus;
+   
 }
 
 function setLoginStatus(status){
     updateTable("userprofile",['loggedin'],[status],"tablename=?",['userprofile']);
+    //alert("set status success");
 }
  
 function checkProfile(){
@@ -57,9 +69,10 @@ function checkProfile(){
             //alert(len);
             for(var i=1;i<len;i++){
                 var name = result.rows.item(i).name;
+                //alert("checkprofile name"+name);
                 if(name=="userprofile") {
                     existProfile=true;
-                    //alert(existProfile);
+                    
                 }       
             }
             if(existProfile==false){
@@ -105,13 +118,14 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-    $.mobile.linkBindingEnabled = true;
-    $.mobile.ajaxEnabled = true;
+    
 //alert("logged in status"+ loggedin);
 //check database for loggedin boolean
 // var naming;
 // naming = select("userprofile","*",);
-// getLoginStatus();
+
+
+
 
 
 //prepare for page 4

@@ -10,6 +10,7 @@ $(document).ready(function(){
     openDB();
     showtable();
     checkProfile();
+    getLoginStatus();
     //setUserName("henry");
     //setLoginStatus("henry");
     //retrieveUser("henry");
