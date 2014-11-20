@@ -104,8 +104,10 @@ var app = {
       
         nfc.addTagDiscoveredListener(
         		function (nfcEvent) {
-        			console.log(JSON.stringify(nfcEvent.tag.id[1]));
-        			document.getElementById("enter-number").value = JSON.stringify(nfcEvent.tag.id);
+        			console.log(JSON.stringify(nfcEvent.tag.id));
+        			console.log(byteArrayToLong(nfcEvent.tag.id));
+        			document.getElementById("enter-number").value = byteArrayToLong(nfcEvent.tag.id);
+        			
         		},
         		function(){
         			console.log("waiting for tag");
@@ -194,6 +196,22 @@ function addnewitem(){
     itemID+=1;
     insertTable(table_list,listFields,insertP,null,0);
 }
+
+function byteArrayToLong(/*byte[]*/x) {
+	var val = 0;
+    for (var i = 0; i < x.length; ++i) {        
+        val += x[i];        
+        if (i < x.length-1) {
+            val = val << 8;
+        }
+    }
+    
+    //convert val to positive if it is negative
+    if(val < 0){
+    	val = val * -1;
+    }
+    return val;
+};
 
 
 //clear all lists on page 5
