@@ -211,6 +211,7 @@ GCM_Event(e)
     break
 
   case 'message':
+
     // the definition of the e variable is json return defined in GCMIntentService.java
     // In my case on registered I have EVENT, MSG and MSGCNT defined
 
@@ -221,11 +222,17 @@ GCM_Event(e)
     //{'Price': 3.76, 'productID': '14401160', 'productName': 'Parmalat 2% Reduced Fat Milk, 1 qt ( Pack of 2)', 'status': 'ADD'}
 
 
-    startListNames(e.message);
-    
+
+	  // Example e.message
+	  //{'category': 'Food/Dairy, Eggs & Cheese/Milk & Cream', 'status': 'add', 'price': 3.7599999999999998, 'productName': 'Parmalat 2% Reduced Fat Milk, 1 qt ( Pack of 2)', 'productID': '14401160'}
+    var parsed = JSON.parse(e.message);
+    var price = parsed.price;
+    var status = parsed.status;
+    var name = parsed.category + " " + parsed.productName;
+
+    //startListNames(e.message);
+    //console.log(name);
     //getTableNamesForItem();
-
-
     break;
 
 
