@@ -35,16 +35,18 @@ function setUserName(name){
 } 
 //retrieve specific user
 function getLoginStatus(){
+    //alert("get login status called");
 var loggedinstatus;
 var name;
     select("userprofile","*","tablename=?",['userprofile'],function(rows){
         //alert("rows are"+rows);
         if(rows){
-            alert("success");
+            //alert("success");
             loggedinstatus = rows.item(0).loggedin;
             name = rows.item(0).username;
-            alert(typeof(loggedinstatus));
-            if(loggedinstatus==true){
+            //alert(typeof(loggedinstatus));
+            //alert(loggedinstatus);
+            if(loggedinstatus=="true"){
                 window.location.replace("#pair");
             }
         }else{
