@@ -218,7 +218,9 @@ GCM_Event(e)
     // Messages to you, This is just here to show you how it might work
 
     //$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.message + '</li>');
-    
+    //{'Price': 3.76, 'productID': '14401160', 'productName': 'Parmalat 2% Reduced Fat Milk, 1 qt ( Pack of 2)', 'status': 'ADD'}
+
+
     startListNames(e.message);
     
     //getTableNamesForItem();

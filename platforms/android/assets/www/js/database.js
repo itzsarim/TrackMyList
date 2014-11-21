@@ -11,6 +11,7 @@ $(document).ready(function(){
     showtable();
     checkProfile();
     getLoginStatus();
+    setTargetList();
     //setUserName("henry");
     //setLoginStatus("henry");
     //retrieveUser("henry");
@@ -73,7 +74,7 @@ function execSql(sql,param,callback){
 		});
 	});
 }
-var profileFields=['username','loggedin','tablename'];
+var profileFields=['username','loggedin','tablename','targetList'];
 var listFields=[
    'id',				
    'item',

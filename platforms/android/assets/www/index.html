@@ -428,6 +428,35 @@
 		<h4>Page Footer</h4>
 	</div> /footer -->
 </div>
+<!-- Start of 9th page: #workinglist -->
+<div data-role="page" data-dom-cache="true" id="workinglist">
+	<div data-role="panel" id="mypanelSelectlist" data-display="overlay" data-position="right">
+    <!-- panel content goes here -->
+    <button id="pair" onclick="" class="ui-btn ui-btn-a">Unpair</button>
+    <button id="logout" onclick="" class="ui-btn ui-btn-a">Logout</button>
+
+	</div><!-- /panel -->
+	<div data-role="header" data-theme="a" >
+		<a href="#alist" data-role="button" data-icon="back" >Back</a>
+		<h3 id="selectlisthead">Select list</h3>
+		<a href="#mypanelSelectlist"  data-role="button" data-icon="bars" >Menu</a>
+		<!--<a href="#order" data-icon="grid">My Order</a>-->
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		
+		<div class="shadow" style="text-align: center;" id="targetlist">Choose your shopping list</div>
+		
+		<ul id="targetlist" data-role="listview">
+    	</ul>
+		
+		
+	</div><!-- /content -->
+
+	<!--<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div> /footer -->
+</div>
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/database.js"></script>

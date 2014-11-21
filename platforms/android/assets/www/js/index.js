@@ -81,7 +81,7 @@ function checkProfile(){
             }
             if(existProfile==false){
                 createTable("userprofile",profileFields,{"username":"primary key","loggedin":"not null","tablename":"not null"});
-                insertTable("userprofile",profileFields,["default",false,"userprofile"]);
+                insertTable("userprofile",profileFields,["default",false,"userprofile",null]);
             }
         });
     });
@@ -256,7 +256,7 @@ function pairCart(){
 	
 	$.get("http://mcprojectserver.appspot.com/paircart?cartid=" + cartid +  "&userid=" + username + "&gcmid=" + gApp.gcmregid, function(data, textStatus)
 	        {
-					window.location.replace('#alists');
+					window.location.replace('#workinglist');
 	        })
 	        .done(function(){
 	        		console.log("Get Done");
@@ -265,6 +265,25 @@ function pairCart(){
 				$("#pairError").append("Failed to pair. Check connection.");	
 				console.log("Get Failed");
 			});
+}
+function setListName (id) {
+    updateTable("userprofile",['targetList'],[id],"tablename=?",["userprofile"]);
+
+    // body...
+
+}
+function setTargetList(){
+    db.transaction(function (tx) {
+        tx.executeSql("SELECT name FROM sqlite_master WHERE type='table'", [], function (tx, result) {
+            var len = result.rows.length;
+            for(var i=1;i<len;i++){
+                var name =result.rows.item(i).name;
+                if(name!=="userprofile"){
+                    $('#targetlist').prepend('<li id="items" > <a data-transition="slide" id="'+name+'" onclick="setListName(this.id);clicklist(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ name+'</a></li>');          
+                }
+            }
+        });
+    });
 }
 
 //$(document).on("pagebeforehide","#addlistitems",function(){
