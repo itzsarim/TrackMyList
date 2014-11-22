@@ -74,7 +74,7 @@ function execSql(sql,param,callback){
 		});
 	});
 }
-var profileFields=['username','loggedin','tablename','targetList'];
+var profileFields=['username','loggedin','tablename','targetList','gcmId','cartId'];
 var listFields=[
    'id',				
    'item',

@@ -33,6 +33,26 @@ function setUserName(name){
     updateTable("userprofile",['username'],[name],"tablename=?",["userprofile"]);
     //alert("set username success");
 } 
+function getUserName(){
+    var username;
+    select("userprofile","*","tablename=?",['userprofile'],function(rows){
+        if(rows){
+            username = rows.item(0).username;
+        }else{
+            alert("error");
+        }
+
+    },
+    function(){
+        alert("no userprofile found");
+    });
+    return username;
+}
+
+function setLoginStatus(status){
+    updateTable("userprofile",['loggedin'],[status],"tablename=?",['userprofile']);
+    //alert("set status success");
+}
 //retrieve specific user
 function getLoginStatus(){
     //alert("get login status called");
@@ -60,10 +80,53 @@ var name;
    
 }
 
-function setLoginStatus(status){
-    updateTable("userprofile",['loggedin'],[status],"tablename=?",['userprofile']);
+function dropTable(name){
+    var drop = 'DROP TABLE IF EXISTS '+name;
+    execSql(drop);
+}
+
+function setGCMId(gcmid){
+    updateTable("userprofile",['gcmId'],[gcmid],"tablename=?",['userprofile']);
     //alert("set status success");
 }
+function getGCMId(){
+    var gcmid;
+    select("userprofile","*","tablename=?",['userprofile'],function(rows){
+        if(rows){
+            gcmid = rows.item(0).gcmId;
+            //alert(gcmid);
+        }else{
+            alert("error");
+        }
+
+    },
+    function(){
+        alert("no userprofile found");
+    });
+    return gcmid;
+}
+
+function setCartId(cartid){
+    updateTable("userprofile",['cartId'],[cartid],"tablename=?",['userprofile']);
+    //alert("set status success");
+}
+function getCartId(){
+    var cartid;
+    select("userprofile","*","tablename=?",['userprofile'],function(rows){
+        if(rows){
+            cartid = rows.item(0).cartId;
+            //alert(cartid);
+        }else{
+            alert("error");
+        }
+
+    },
+    function(){
+        alert("no userprofile found");
+    });
+    return cartid;
+}
+
  
 function checkProfile(){
     var existProfile = false;
@@ -81,7 +144,7 @@ function checkProfile(){
             }
             if(existProfile==false){
                 createTable("userprofile",profileFields,{"username":"primary key","loggedin":"not null","tablename":"not null"});
-                insertTable("userprofile",profileFields,["default",false,"userprofile",null]);
+                insertTable("userprofile",profileFields,["default",false,"userprofile",null,null,null]);
             }
         });
     });
