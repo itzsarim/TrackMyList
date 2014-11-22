@@ -23,10 +23,18 @@ var currentitemname;
 //triggered when customer puts item into shopping cart and then item's name is pushed by gcm.
 //will direct to page #selectlist
 
-function startListNames(item){
+function startListNames(name , price , status){
 
-currentitemname = item.toLowerCase();
- window.location.replace("#selectlist");
+// depending on the status add or remove the item from the database
+
+
+//name has product name , do a match of items from this huge sentence of words
+var string = name;
+var result = string.match(/milk/i); //instead of milk put the database itemname to see if any of them matches to the name
+//if it matches then check it with price displayed beside it, and total increased
+
+
+ //window.location.replace("#selectlist"); replace to the current itemlist page
  
 }
 
@@ -228,9 +236,9 @@ GCM_Event(e)
     var parsed = JSON.parse(e.message);
     var price = parsed.price;
     var status = parsed.status;
-    var name = parsed.category + " " + parsed.productName;
+    var name =parsed.productName //+ " " + parsed.category;
 
-    //startListNames(e.message);
+    startListNames(name , price , status);
     //console.log(name);
     //getTableNamesForItem();
     break;
