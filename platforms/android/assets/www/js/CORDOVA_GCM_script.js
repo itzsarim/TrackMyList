@@ -39,7 +39,7 @@ var result = string.match(/milk/i); //instead of milk put the database itemname 
 }
 function setGCMId(gcmid){
     updateTable("userprofile",['gcmId'],[gcmid],"tablename=?",['userprofile']);
-    alert('gcm set');
+    //alert('gcm set');
     //alert("set status success");
 }
 //store all the table's names into tablelist
@@ -50,7 +50,7 @@ function showtable(){
             var len = result.rows.length;
             if (len == 1) {
             //here are no your tables currently
-            alert("no list in the database");
+            //alert("no list in the database");
             } else {
                 for(var i=1;i<len;i++){
                     var name =result.rows.item(i).name;

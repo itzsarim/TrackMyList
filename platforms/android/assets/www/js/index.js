@@ -46,12 +46,12 @@ function getUserName(){
             username = rows.item(0).username;
             userName = username;
         }else{
-            alert("error");
+            console.log("error");
         }
 
     },
     function(){
-        alert("no userprofile found");
+        console.log("no userprofile found");
     });
     
 }
@@ -110,14 +110,14 @@ function getGCMId(){
 
 function setCartId(cartid){
     updateTable("userprofile",['cartId'],[cartid],"tablename=?",['userprofile']);
-    alert("set cart status success");
+    //alert("set cart status success");
      //get the global variable cartId ready to be used during unpair
     getCartId();
 }
 function getCartId(){
     var cartid;
     select("userprofile","*","tablename=?",['userprofile'],function(rows){
-        alert("get cart status success");
+        //alert("get cart status success");
         if(rows){
             cartid = rows.item(0).cartId;
             cartId = cartid;
@@ -211,7 +211,7 @@ $(document).on("pagebeforeshow","#alists",function(){
             var len = result.rows.length;
             if (len == 2) {
             //here are no your tables currently
-            alert("no list in the database");
+            //alert("no list in the database");
             } else {
                 for(var i=1;i<len;i++){
                     var name =result.rows.item(i).name;
@@ -313,7 +313,7 @@ function additeminlist(){
     currownum+=1;
     var newitem = $('input[name=listdetailitemname]').val().toLowerCase();
     //alert(newitem);
-    $('#listingitems').append('<fieldset data-role="controlgroup">'+'<label><input id="'+newitem+'" onclick="updatebought(this.name,this.checked)"  name="'+curlistname+'$'+newitem+'$'+currownum+'" type="checkbox">'+newitem+'</label></fieldset>');
+    //$('#listingitems').append('<fieldset data-role="controlgroup">'+'<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off"><input id="'+newitem+'" onclick="updatebought(this.name,this.checked)"  name="'+curlistname+'$'+newitem+'$'+currownum+'" type="checkbox">'+newitem+'</label></fieldset>');
     $('input[name=listdetailitemname]').val("");        
     //createPara(currownum,newitem,curlistname);
     insertTable(curlistname,listFields,[currownum,newitem,curlistname,false,null,0]);
