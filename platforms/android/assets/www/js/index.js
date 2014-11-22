@@ -253,6 +253,10 @@ function additeminlist(){
 function pairCart(){
 	var cartid = document.getElementById("enter-number").value
 	console.log("sending request to pair with cart " + cartid);
+
+    //var cartid = getcartid()
+    //var username = getusername()
+    //var gcmid = getgcmid()
 	
 	$.get("http://mcprojectserver.appspot.com/paircart?cartid=" + cartid +  "&userid=" + username + "&gcmid=" + gApp.gcmregid, function(data, textStatus)
 	        {
@@ -265,6 +269,25 @@ function pairCart(){
 				$("#pairError").append("Failed to pair. Check connection.");	
 				console.log("Get Failed");
 			});
+}
+function unpairCart(){
+    
+    console.log("sending request to unpair with cart " + cartid);
+    //var cartid = getcartid()
+    //var username = getusername()
+    //var gcmid = getgcmid()
+    
+    $.get("http://mcprojectserver.appspot.com/unpaircart?cartid=" + cartid +  "&userid=" + username + "&gcmid=" + gApp.gcmregid, function(data, textStatus)
+            {
+                    window.location.replace('#pair');
+            })
+            .done(function(){
+                    console.log("Get Done");
+            })
+            .fail(function(){
+
+                console.log("Get Failed");
+            });
 }
 function setListName (id) {
     updateTable("userprofile",['targetList'],[id],"tablename=?",["userprofile"]);
@@ -285,7 +308,10 @@ function setTargetList(){
         });
     });
 }
-
+function logout () {
+    setLoginStatus(false);
+    window.location.replace('#tut1');
+}
 //$(document).on("pagebeforehide","#addlistitems",function(){
 //	select(table_list,"*","list=?",[table_list],function(rows){
 //		var b = rows.item(0).budget;
