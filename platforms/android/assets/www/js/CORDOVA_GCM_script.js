@@ -37,7 +37,11 @@ var result = string.match(/milk/i); //instead of milk put the database itemname 
  //window.location.replace("#selectlist"); replace to the current itemlist page
  
 }
-
+function setGCMId(gcmid){
+    updateTable("userprofile",['gcmId'],[gcmid],"tablename=?",['userprofile']);
+    alert('gcm set');
+    //alert("set status success");
+}
 //store all the table's names into tablelist
 function showtable(){
     tablelist = [];
@@ -164,9 +168,9 @@ function clicklist(listid){
 document.addEventListener('deviceready', function() {
 
   // This is the Cordova deviceready event. Once this is called Cordova is available to be used
-  $("#app-status-ul").append('<li>deviceready event received</li>' );
+  //$("#app-status-ul").append('<li>deviceready event received</li>' );
 
-  $("#app-status-ul").append('<li>calling GCMRegistrar.register, register our Sender ID with Google</li>' );
+  //$("#app-status-ul").append('<li>calling GCMRegistrar.register, register our Sender ID with Google</li>' );
 
 
   gApp.DeviceReady = true;
@@ -190,7 +194,7 @@ function
 GCM_Event(e)
 {
 
-  $("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
+  //$("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
 
 
   switch( e.event )
@@ -199,6 +203,7 @@ GCM_Event(e)
     // the definition of the e variable is json return defined in GCMReceiver.java
     // In my case on registered I have EVENT and REGID defined
     gApp.gcmregid = e.regid;
+    setGCMId(gApp.gcmregid);
     if ( gApp.gcmregid.length > 0 )
     {
       //$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");

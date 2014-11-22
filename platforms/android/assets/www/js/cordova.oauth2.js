@@ -26,6 +26,14 @@
  *
  *
 */
+function setUserName(name){
+    updateTable("userprofile",['username'],[name],"tablename=?",["userprofile"]);
+    //alert("set username success");
+} 
+function setLoginStatus(status){
+    updateTable("userprofile",['loggedin'],[status],"tablename=?",['userprofile']);
+    //alert("set status success");
+}
 
 function oauth2_login() {
     $.oauth2({
@@ -50,6 +58,7 @@ function oauth2_login() {
                             var username = data['displayName'];
                             setUserName(username);
                             setLoginStatus(true);
+
                             window.location.replace("#pair");
                                
                             },

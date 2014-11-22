@@ -17,7 +17,15 @@
  * under the License.
  */
 
- var username;
+ var userName;
+ var cartId;
+ var gcmId;
+
+//get global username and gcmid before pair page shows
+ $(document).on("pagebeforeshow","#pair",function(){
+    getUserName();
+    getGCMId();
+ });
 
 function deletelist(list){
     var drop = 'DROP TABLE IF EXISTS '+list;
@@ -29,15 +37,14 @@ function deleteitem(list,item){
 }
   
     
-function setUserName(name){
-    updateTable("userprofile",['username'],[name],"tablename=?",["userprofile"]);
-    //alert("set username success");
-} 
+
+
 function getUserName(){
     var username;
     select("userprofile","*","tablename=?",['userprofile'],function(rows){
         if(rows){
             username = rows.item(0).username;
+            userName = username;
         }else{
             alert("error");
         }
@@ -46,13 +53,10 @@ function getUserName(){
     function(){
         alert("no userprofile found");
     });
-    return username;
+    
 }
 
-function setLoginStatus(status){
-    updateTable("userprofile",['loggedin'],[status],"tablename=?",['userprofile']);
-    //alert("set status success");
-}
+
 //retrieve specific user
 function getLoginStatus(){
     //alert("get login status called");
@@ -85,15 +89,13 @@ function dropTable(name){
     execSql(drop);
 }
 
-function setGCMId(gcmid){
-    updateTable("userprofile",['gcmId'],[gcmid],"tablename=?",['userprofile']);
-    //alert("set status success");
-}
+
 function getGCMId(){
     var gcmid;
     select("userprofile","*","tablename=?",['userprofile'],function(rows){
         if(rows){
             gcmid = rows.item(0).gcmId;
+            gcmId = gcmid;
             //alert(gcmid);
         }else{
             alert("error");
@@ -103,18 +105,22 @@ function getGCMId(){
     function(){
         alert("no userprofile found");
     });
-    return gcmid;
+    
 }
 
 function setCartId(cartid){
     updateTable("userprofile",['cartId'],[cartid],"tablename=?",['userprofile']);
-    //alert("set status success");
+    alert("set cart status success");
+     //get the global variable cartId ready to be used during unpair
+    getCartId();
 }
 function getCartId(){
     var cartid;
     select("userprofile","*","tablename=?",['userprofile'],function(rows){
+        alert("get cart status success");
         if(rows){
             cartid = rows.item(0).cartId;
+            cartId = cartid;
             //alert(cartid);
         }else{
             alert("error");
@@ -124,7 +130,7 @@ function getCartId(){
     function(){
         alert("no userprofile found");
     });
-    return cartid;
+    
 }
 
  
@@ -171,6 +177,7 @@ var app = {
       
         nfc.addTagDiscoveredListener(
         		function (nfcEvent) {
+                    console.log('in nfc');
         			console.log(JSON.stringify(nfcEvent.tag.id));
         			console.log(byteArrayToLong(nfcEvent.tag.id));
         			document.getElementById("enter-number").value = byteArrayToLong(nfcEvent.tag.id);
@@ -316,10 +323,12 @@ function additeminlist(){
 function pairCart(){
 	var cartid = document.getElementById("enter-number").value
 	console.log("sending request to pair with cart " + cartid);
-
+    setCartId(cartid);
     //var cartid = getcartid()
-    //var username = getusername()
-    //var gcmid = getgcmid()
+    var username = userName;
+    var gcmid = gcmId;
+
+  
 	
 	$.get("http://mcprojectserver.appspot.com/paircart?cartid=" + cartid +  "&userid=" + username + "&gcmid=" + gApp.gcmregid, function(data, textStatus)
 	        {
@@ -335,12 +344,15 @@ function pairCart(){
 }
 function unpairCart(){
     
-    console.log("sending request to unpair with cart " + cartid);
-    //var cartid = getcartid()
-    //var username = getusername()
-    //var gcmid = getgcmid()
     
-    $.get("http://mcprojectserver.appspot.com/unpaircart?cartid=" + cartid +  "&userid=" + username + "&gcmid=" + gApp.gcmregid, function(data, textStatus)
+    var cartid = cartId;
+    var username = userName;
+    var gcmid = gcmId
+    console.log("sending request to unpair with cart " + cartid);
+    console.log("sending request to unpair with gcm " + gcmid);
+    console.log("sending request to unpair with userName " + username);
+    
+    $.get("http://mcprojectserver.appspot.com/unpaircart?cartid=" + cartid +  "&userid=" + username + "&gcmid=" + gcmid, function(data, textStatus)
             {
                     window.location.replace('#pair');
             })
