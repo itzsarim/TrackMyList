@@ -33,7 +33,7 @@ function deletelist(list){
 }
 
 function deleteitem(list,item){
-    deleteRow(list,item,"item=?");
+    deleteRow(list,"item=?",[item]);
 }
   
     
@@ -303,6 +303,11 @@ function clearlistdetails(){
     $('#listheader').empty();
     $('#listingitems').empty();
     $('#dollar').empty();
+    $('#totalsum').empty();
+}
+
+function cleartargetlist(){
+    $('#targetlist').empty();
 }
 
 
@@ -364,9 +369,16 @@ function unpairCart(){
                 console.log("Get Failed");
             });
 }
+
+function testTargetList(){
+    //setTargetList();
+    window.location.replace('#workinglist');
+    
+
+}
+
 function setListName (id) {
     updateTable("userprofile",['targetList'],[id],"tablename=?",["userprofile"]);
-
     // body...
 
 }
@@ -377,7 +389,7 @@ function setTargetList(){
             for(var i=1;i<len;i++){
                 var name =result.rows.item(i).name;
                 if(name!=="userprofile"){
-                    $('#targetlist').prepend('<li id="items" > <a data-transition="slide" id="'+name+'" onclick="setListName(this.id);clicklist(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ name+'</a></li>');          
+                    $('#targetlist').prepend('<li id="items" > <a data-transition="slide" id="'+name+'" onclick="setListName(this.id);clicklist(this.id);cleartargetlist()" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ name+'</a></li>');          
                 }
             }
         });
