@@ -25,6 +25,7 @@ var currentitemname;
 
 function startListNames(name , price , status){
 
+clearlistdetails();
 // depending on the status add or remove the item from the database
 
 
@@ -139,7 +140,7 @@ function updatebought(listname,itemname,ischecked,price){
 //trigered to prepare page 7 and direct to page 7
 function clicklist(listid){
     curlistname = listid;
-    clearlist();
+    
 
     $('#listheader').append(listid);
     //alert($('#listheader').text());

@@ -319,7 +319,9 @@ function additeminlist(){
     var newitem = $('input[name=listdetailitemname]').val().toLowerCase();
     //alert(newitem);
     //$('#listingitems').append('<fieldset data-role="controlgroup">'+'<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off"><input id="'+newitem+'" onclick="updatebought(this.name,this.checked)"  name="'+curlistname+'$'+newitem+'$'+currownum+'" type="checkbox">'+newitem+'</label></fieldset>');
-    $('input[name=listdetailitemname]').val("");        
+    $('#listingitems').append('<fieldset data-role="controlgroup">'+'<label><input id="'+newitem+'" onclick="updatebought(this.name,this.checked)"  name="'+curlistname+'$'+newitem+'$'+currownum+'" type="checkbox">'+newitem+'</label></fieldset>');
+    $('input[name=listdetailitemname]').val("");  
+
     //createPara(currownum,newitem,curlistname);
     insertTable(curlistname,listFields,[currownum,newitem,curlistname,false,null,0]);
 };
