@@ -32,6 +32,30 @@ function startListNames(name , price , status){
 var string = name;
 var result = string.match(/milk/i); //instead of milk put the database itemname to see if any of them matches to the name
 //if it matches then check it with price displayed beside it, and total increased
+ if(status=="add"){
+  select("userprofile","*","tablename=?",['userprofile'],function(rows){
+    var targetList = rows.item(0).targetList;
+    var listlength;
+    select(targetList,"*","list=?",[targetList],function(rows){
+      currownum = rows.length;
+    });
+    select(targetList,"*","item=?",[result],function(rows){
+      if(rows){
+        updateTable(targetList,['bought','price'],[true,price],"item=?",[result]);
+        clicklist(targetList);
+      }else{
+        insertTable(targetList,listFields,[currownum,result,targetList,true,null,price]);
+        clicklist(targetList);    
+      }
+    });
+  });
+ }else if(status=="remove"){
+   select("userprofile","*","tablename=?",['userprofile'],function(rows){
+    var targetList = rows.item(0).targetList;
+    updateTable(targetList,['bought','price'],[false,0],"item=?",[result]);
+    clicklist(targetList); 
+  });   
+ }
 
 
  //window.location.replace("#selectlist"); replace to the current itemlist page
@@ -101,19 +125,16 @@ function selectlistanditem(name){
     clicklist(listname);
 }
 //update the database when check box changes on page 7
-function updatebought(name,ischecked){
-    var array = name.split("$");
-    var listname = array[0];
-    var itemname = array[1];
+function updatebought(listname,itemname,ischecked,price){
     var checked = ischecked;
     //alert(itemname);
-    updateTable(listname,['bought'],[checked],"item=?",[itemname]);
+    updateTable(listname,['bought','price'],[checked,price],"item=?",[itemname]);
     select(listname,"*","item=?",[itemname],function(rows){
         if(rows){
             var b = rows.item(0).bought;
-            //alert(b);
+            alert(b);
         }
-    })
+    });
 }
 //trigered to prepare page 7 and direct to page 7
 function clicklist(listid){
@@ -131,14 +152,22 @@ function clicklist(listid){
                 //row.item(index).attribute is the data acquired from the rows, where index is the index of rows returned, attribute is the certain attribute in field 
                 var len = rows.length;
                 currownum =len-1;
+                var totalprice = 0;
                 for(var i=1;i<len;i++){
 
                     var curritem = rows.item(i).item;
                     var curbought = rows.item(i).bought;
+                    var curprice = rows.item(i).price;
+                    totalprice+=curprice;
                     //var rowid = i+1;
                     //alert(bought);
-                    $('#listingitems').append('<label><input class="boughtcheckbox" onclick="updatebought(this.name,this.checked)" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+'" type="checkbox">'+curritem+'</label>');
+                    if(curprice==0){
+                      $('#listingitems').append('<label><input class="boughtcheckbox" onclick="updatebought(this.name,this.checked)" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+'" type="checkbox">'+curritem+'</label>');
+                    }else if(curbought!=="false"){
+                      $('#listingitems').append('<label><input class="boughtcheckbox" onclick="updatebought(this.name,this.checked)" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+'" type="checkbox">'+curritem+'                                                                          '+curprice+'</label>');
+                    }
                 }
+                $('#totalsum').append(totalprice);
                 for(var i=1;i<len;i++){
                     //alert(i);
                     var curritem = rows.item(i).item;
