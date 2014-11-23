@@ -30,31 +30,52 @@ clearlistdetails();
 
 
 //name has product name , do a match of items from this huge sentence of words
-var string = name;
-var result = string.match(/milk/i); //instead of milk put the database itemname to see if any of them matches to the name
+var result=name; //instead of milk put the database itemname to see if any of them matches to the name
 //if it matches then check it with price displayed beside it, and total increased
  if(status=="add"){
   select("userprofile","*","tablename=?",['userprofile'],function(rows){
     var targetList = rows.item(0).targetList;
-    var listlength;
+    var containsItem =false;
     select(targetList,"*","list=?",[targetList],function(rows){
       currownum = rows.length;
-    });
-    select(targetList,"*","item=?",[result],function(rows){
-      if(rows){
-        updateTable(targetList,['bought','price'],[true,price],"item=?",[result]);
-        clicklist(targetList);
-      }else{
-        insertTable(targetList,listFields,[currownum,result,targetList,true,null,price]);
-        clicklist(targetList);    
+      for(var i=1;i<currownum;i++){
+        var item = rows.item(i).item;
+        if(result.indexOf(item) > -1){
+          //alert(result);
+          containsItem = true;
+          result = item;
+          updateTable(targetList,['bought','price'],[true,price],"item=?",[result]);
+          clicklist(targetList);
+        }
+      }
+      if(containsItem==false){
+          insertTable(targetList,listFields,[currownum,result,targetList,true,null,price]);
+          clicklist(targetList);
       }
     });
+    // select(targetList,"*","item=?",[result],function(rows){
+    //   if(rows){
+    //     updateTable(targetList,['bought','price'],[true,price],"item=?",[result]);
+    //     clicklist(targetList);
+    //   }else{
+    //     insertTable(targetList,listFields,[currownum,result,targetList,true,null,price]);
+    //     clicklist(targetList);    
+    //   }
+    // });
   });
  }else if(status=="remove"){
    select("userprofile","*","tablename=?",['userprofile'],function(rows){
     var targetList = rows.item(0).targetList;
-    updateTable(targetList,['bought','price'],[false,0],"item=?",[result]);
-    clicklist(targetList); 
+    select(targetList,"*","list=?",[targetList],function(rows){
+        for(var i=1;i<rows.length;i++){
+        var item = rows.item(i).item;
+        if(result.indexOf(item) > -1){
+          result = item;
+          updateTable(targetList,['bought','price'],[false,0],"item=?",[result]);
+          clicklist(targetList);
+        }
+      }
+    });
   });   
  }
 
@@ -163,12 +184,17 @@ function clicklist(listid){
                     //var rowid = i+1;
                     //alert(bought);
                     if(curprice==0){
-                      $('#listingitems').append('<label><input class="boughtcheckbox" onclick="updatebought(this.name,this.checked)" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+'" type="checkbox">'+curritem+'</label>');
+                      $('#listingitems').append('<label><input class="boughtcheckbox" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+'" type="checkbox">'+curritem+'</label>');
                     }else if(curbought!=="false"){
-                      $('#listingitems').append('<label><input class="boughtcheckbox" onclick="updatebought(this.name,this.checked)" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+'" type="checkbox">'+curritem+'                                                                          '+curprice+'</label>');
+                      $('#listingitems').append('<label><input class="boughtcheckbox" id="'+curritem+'" name="'+curlistname+'$'+curritem+'$'+'" type="checkbox">'+curritem+'                                                                          '+curprice+'</label>');
                     }
                 }
-                $('#totalsum').append(totalprice);
+                if(totalprice>curbudget){
+                  $('#totalsum').append(totalprice+"  The total price of your purchase exceeds your budget!");
+                }else{
+                  $('#totalsum').append(totalprice);
+                }
+                
                 for(var i=1;i<len;i++){
                     //alert(i);
                     var curritem = rows.item(i).item;

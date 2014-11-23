@@ -247,9 +247,9 @@ var curbudget;
 //add new list on page 5
 function addnewlist(){
     var newListName = $('input[name=listname]').val().toLowerCase();
-    curbudget = $('input[name=budget]').val();
-    if(typeof(curbudget)=="number"){
-    	curbudget =  parseFloat($('input[name=budget]').val());
+    curbudget = $('input[name=budget]').val().match(/\d+/)[0]
+    if(curbudget!=""){
+    	curbudget =  parseFloat(curbudget);
     }else{
     	curbudget = 50;
     }
