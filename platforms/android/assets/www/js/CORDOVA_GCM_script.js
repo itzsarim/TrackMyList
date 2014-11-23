@@ -27,8 +27,9 @@ function startListNames(name , price , status){
 
 clearlistdetails();
 // depending on the status add or remove the item from the database
-
-
+name = name.toLowerCase();
+name = name.replace(/[^\w\s]/gi, '');
+name = name.replace(/ /g, "");
 //name has product name , do a match of items from this huge sentence of words
 var result=name; //instead of milk put the database itemname to see if any of them matches to the name
 //if it matches then check it with price displayed beside it, and total increased
@@ -200,7 +201,6 @@ function clicklist(listid){
                     var curritem = rows.item(i).item;
                     var curbought = rows.item(i).bought;
                     var rowid = i+1;
-                    //alert(curbought);
                     //alert(typeof(curbought));
                     if(curbought=="false"){
                         curbought=false;
