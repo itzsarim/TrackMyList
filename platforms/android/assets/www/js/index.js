@@ -218,7 +218,7 @@ $(document).on("pagebeforeshow","#alists",function(){
                     //var drop = 'DROP TABLE IF EXISTS '+name;
                     //execSql(drop);
                     if(name!=="userprofile") {
-                        $('#listing').prepend('<li id="items" > <a data-transition="slide" id="'+name+'" onclick="clicklist(this.id)" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ name+'</a></li>');
+                        $('#listing').prepend('<li id="items" > <a data-transition="slide" id="'+name+'" onclick="clicklist(this.id);clearlist()" class="ui-btn ui-btn-icon-right ui-icon-carat-r" >'+ name+'</a></li>');
                     }
                 }
                  
