@@ -247,6 +247,8 @@ var curbudget;
 //add new list on page 5
 function addnewlist(){
     var newListName = $('input[name=listname]').val().toLowerCase();
+    newListName = newListName.replace(/[^\w\s]/gi, '');
+    newListName = newListName.replace(/ /g, "");
     curbudget = $('input[name=budget]').val().match(/\d+/)[0]
     if(curbudget!=""){
     	curbudget =  parseFloat(curbudget);
@@ -264,6 +266,8 @@ function addnewlist(){
 //add new items on page 6
 function addnewitem(){
     var newItemName = $('input[name=itemname]').val().toLowerCase();
+    newItemName = newItemName.replace(/[^\w\s]/gi, '');
+    newItemName = newItemName.replace(/ /g, "");
     $('#itemslisting').append('<li class="ui-li-static ui-body-inherit">' +itemID+'.'+newItemName + '</li>' );
     $('input[name=itemname]').val("");
     createPara(itemID,newItemName,table_list);
@@ -317,6 +321,8 @@ function additeminlist(){
 	//alert(curbudget);
     currownum+=1;
     var newitem = $('input[name=listdetailitemname]').val().toLowerCase();
+    newitem = newitem.replace(/[^\w\s]/gi, '');
+    newitem = newitem.replace(/ /g, "");
     //alert(newitem);
     //$('#listingitems').append('<fieldset data-role="controlgroup">'+'<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off"><input id="'+newitem+'" onclick="updatebought(this.name,this.checked)"  name="'+curlistname+'$'+newitem+'$'+currownum+'" type="checkbox">'+newitem+'</label></fieldset>');
     $('#listingitems').append('<fieldset data-role="controlgroup">'+'<label><input id="'+newitem+'" onclick="updatebought(this.name,this.checked)"  name="'+curlistname+'$'+newitem+'$'+currownum+'" type="checkbox">'+newitem+'</label></fieldset>');
