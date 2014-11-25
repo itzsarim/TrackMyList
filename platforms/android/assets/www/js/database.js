@@ -11,7 +11,7 @@ $(document).ready(function(){
     showtable();
     checkProfile();
     getLoginStatus();
-    setTargetList();
+    //setTargetList();
     //setUserName("henry");
     //setLoginStatus("henry");
     //retrieveUser("henry");

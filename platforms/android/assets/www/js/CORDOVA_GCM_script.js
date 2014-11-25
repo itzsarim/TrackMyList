@@ -191,7 +191,7 @@ function clicklist(listid){
                     }
                 }
                 if(totalprice>curbudget){
-                  $('#totalsum').append(totalprice+"  The total price of your purchase exceeds your budget!");
+                  $('#overbudget').append(totalprice+"  The total price of your purchase exceeds your budget!");
                 }else{
                   $('#totalsum').append(totalprice);
                 }
