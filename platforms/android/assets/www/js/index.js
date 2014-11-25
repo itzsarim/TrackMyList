@@ -22,11 +22,7 @@
  var gcmId;
 
 //get global username and gcmid before pair page shows
- $(document).on("pagebeforeshow","#workinglist",function(){
-    setTargetList();
- });
-
-$(document).on("pagebeforeshow","#pair",function(){
+ $(document).on("pagebeforeshow","#pair",function(){
     getUserName();
     getGCMId();
  });
