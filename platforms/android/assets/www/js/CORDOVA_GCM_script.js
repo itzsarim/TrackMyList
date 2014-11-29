@@ -182,6 +182,7 @@ function clicklist(listid){
                     var curbought = rows.item(i).bought;
                     var curprice = rows.item(i).price;
                     totalprice+=curprice;
+                    totalprice = Math.round(totalprice*100)/100
                     //var rowid = i+1;
                     //alert(bought);
                     if(curprice==0){
@@ -191,7 +192,8 @@ function clicklist(listid){
                     }
                 }
                 if(totalprice>curbudget){
-                  $('#overbudget').append(totalprice+"  The total price of your purchase exceeds your budget!");
+                  $('#totalsum').append(totalprice);
+                  $('#overbudget').append("The total price of your purchase exceeds your budget!");
                 }else{
                   $('#totalsum').append(totalprice);
                 }

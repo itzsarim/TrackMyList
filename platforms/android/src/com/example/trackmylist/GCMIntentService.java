@@ -87,21 +87,21 @@ public class GCMIntentService extends GCMBaseIntentService {
       }        	
     }
 
-    String message = extras.getString("message");
-    String title = extras.getString("title");
-    Notification notif = new Notification(android.R.drawable.btn_star_big_on, message, System.currentTimeMillis() );
-    notif.flags = Notification.FLAG_AUTO_CANCEL;
-    notif.defaults |= Notification.DEFAULT_SOUND;
-    notif.defaults |= Notification.DEFAULT_VIBRATE;
-     
-    Intent notificationIntent = new Intent(context, TrackMyList.class);
-    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-    PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-     
-    notif.setLatestEventInfo(context, title, message, contentIntent);
-    String ns = Context.NOTIFICATION_SERVICE;
-    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(ns);
-    mNotificationManager.notify(1, notif);
+//    String message = extras.getString("message");
+//    String title = extras.getString("title");
+//    Notification notif = new Notification(android.R.drawable.btn_star_big_on, message, System.currentTimeMillis() );
+//    notif.flags = Notification.FLAG_AUTO_CANCEL;
+//    notif.defaults |= Notification.DEFAULT_SOUND;
+//    notif.defaults |= Notification.DEFAULT_VIBRATE;
+//     
+//    Intent notificationIntent = new Intent(context, TrackMyList.class);
+//    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//    PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+//     
+//    notif.setLatestEventInfo(context, title, message, contentIntent);
+//    String ns = Context.NOTIFICATION_SERVICE;
+//    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(ns);
+//    mNotificationManager.notify(1, notif);
 
   }
 
