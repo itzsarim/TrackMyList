@@ -312,6 +312,7 @@ function clearlistdetails(){
     $('#listingitems').empty();
     $('#dollar').empty();
     $('#totalsum').empty();
+    $('#overbudget').empty();
 }
 
 function cleartargetlist(){
