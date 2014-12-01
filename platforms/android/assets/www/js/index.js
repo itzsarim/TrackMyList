@@ -182,7 +182,7 @@ var app = {
         nfc.addTagDiscoveredListener(
         		function (nfcEvent) {
                     console.log('in nfc');
-        			console.log(JSON.stringify(nfcEvent.tag.id));
+        			console.log(JSON.stringify(nfcEvent.tag));
         			console.log(byteArrayToLong(nfcEvent.tag.id));
         			document.getElementById("enter-number").value = byteArrayToLong(nfcEvent.tag.id);
         			
@@ -279,12 +279,12 @@ function addnewitem(){
     insertTable(table_list,listFields,insertP,null,0);
 }
 
-function byteArrayToLong(/*byte[]*/x) {
+function byteArrayToLong(x) {
 	var val = 0;
     for (var i = 0; i < x.length; ++i) {        
         val += x[i];        
         if (i < x.length-1) {
-            val = val << 8;
+            val = val << 4;
         }
     }
     
